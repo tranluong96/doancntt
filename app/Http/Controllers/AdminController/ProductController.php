@@ -18,7 +18,8 @@ class ProductController extends Controller
     {
 
         $arProducts = Products::orderby('id','DESC')->paginate(10);
-        return view('admin.product.list_product', ['arProduct' => $arProducts]);
+        $categories =  Categories::all()
+        return view('admin.product.list_product')->with(['arProduct' => $arProducts], ['categories'] => $categories);
     }
 
     /**
