@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
 
-class CreateParametersTable extends Migration
+class CreateTransactionInputorderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +13,15 @@ class CreateParametersTable extends Migration
      */
     public function up()
     {
-        Schema::create('parameters', function (Blueprint $table) {
+        Schema::create('traninput_order', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->integer('id_product')->unsigned()->nullable();
+            $table->integer('quantity')->unsigned()->nullable();
+            $table->decimal('price_old',5,2);
+            $table->decimal('price',5,2);
+            $table->decimal('total',5,2);
             $table->timestamps();
         });
-        DB::table('parameters')->insert(
-            array(
-                'name' => 'Chưa xác định'
-            )
-        );
     }
 
     /**
@@ -33,6 +31,6 @@ class CreateParametersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parameters');
+        Schema::dropIfExists('traninput_order');
     }
 }

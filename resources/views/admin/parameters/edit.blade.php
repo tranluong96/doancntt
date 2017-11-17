@@ -12,29 +12,29 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-                <form action="" method="get" accept-charset="utf-8">
+            <form action="{{ route('admin.update.parameters',[ 'id'=>$parameters['id'] ]) }}" method="POST" >
+                {{ csrf_field() }}
+                <div class="box-body">
                     <div class="form-group">
                         <label for="">Name Old</label>
-                        <input type="text" name="" value="Ram" placeholder="" class="form-control" disabled>
+                        <input type="text" name="" value="{{ $parameters['name'] }}" placeholder="" class="form-control" disabled>
                     </div>
                     <div class="form-group">
                         <label for="">New Name</label>
-                        <input type="text" name="" value="" placeholder="nhập..." class="form-control">
-                    </div>
-                    
-                </form>
-            </div>
-            <div class="box-footer">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <input type="submit" name="" value="Update" class="btn btn-success">
-                    </div>
-                    <div class="col-xs-3">
-                        <input type="submit" name="" value="Cancel" class="btn btn-defaul">
+                        <input type="text" name="name" value="" placeholder="nhập..." class="form-control">
                     </div>
                 </div>
-            </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <input type="submit" value="Update" class="btn btn-success">
+                        </div>
+                        <div class="col-xs-3">
+                            <a href="" class="btn btn-default">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
         <!-- /.box-body -->
         </div>
         <!-- /.box -->
