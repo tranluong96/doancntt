@@ -19,7 +19,7 @@ class CreateTransactionInputorderTable extends Migration
             $table->integer('quantity')->unsigned()->nullable();
             $table->integer('price_old')->unsigned()->nullable();
             $table->integer('price')->unsigned()->nullable();
-            $table->decimal('total',5,2);
+            $table->integer('total')->unsigned()->nullable();
             $table->timestamps();
         });
     }
