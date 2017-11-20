@@ -241,6 +241,12 @@ Route::group(['namespace' => 'AdminController','prefix' => 'adminpc', 'middlewar
             'uses'  => 'UsersController@index',
             'as'    => 'admin.users'
         ]);
+
+        Route::get('see-Profile-{id}',[
+            'uses'  => 'UsersController@seeProfile',
+            'as'    =>'admin.user.seeProfile'
+        ]);
+
         Route::get('/user-add',[
             'uses'  => 'UsersController@create',
             'as'    => 'admin.usersCreate'

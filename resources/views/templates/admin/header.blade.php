@@ -48,8 +48,7 @@
 <div class="wrapper">
 
   <header class="main-header">
-
-    <!-- Logo -->
+     <!-- Logo -->
     <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
@@ -80,7 +79,12 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+
+                        @if(Session::get('PICTURE') != "")
+                          <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
+                        @else
+                          <img src="{{ asset('images/logo/avata.png') }}" class="img-circle" alt="User Image">
+                        @endif
                       </div>
                       <h4>
                         Support Team
@@ -93,7 +97,11 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                        @if(Session::get('PICTURE') != "")
+                        <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
+                        @else
+                          <img src="{{ asset('images/logo/avata.png') }}" class="img-circle" alt="User Image">
+                        @endif
                       </div>
                       <h4>
                         Sales Department
@@ -105,7 +113,11 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                        @if(Session::get('PICTURE') != "")
+                        <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
+                        @else
+                          <img src="{{ asset('images/logo/avata.png') }}" class="img-circle" alt="User Image">
+                        @endif
                       </div>
                       <h4>
                         Reviewers
@@ -199,7 +211,11 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="user-image" alt="User Image">
+               @if(Session::get('PICTURE') != "")
+                <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}"  class="user-image" alt="User Image">
+              @else
+                <img src="{{ asset('images/logo/avata.png') }}"  class="user-image" alt="User Image">
+              @endif
               <span class="hidden-xs">
                 @if(Session::get('FULLNAME') != "")
                   {{ Session::get('FULLNAME')}}
@@ -209,7 +225,11 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
+                 @if(Session::get('PICTURE') != "")
+                          <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
+                        @else
+                          <img src="{{ asset('images/logo/avata.png') }}" class="img-circle" alt="User Image">
+                        @endif
                 <p>
                 @if(Session::get('FULLNAME') != "")
                   {{ Session::get('FULLNAME')}}
@@ -220,7 +240,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ route('admin.user.seeProfile',['id'=>Session::get('ID')]) }}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{ route('admin.logout') }}" class="btn btn-default btn-flat">Sign out</a>

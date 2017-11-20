@@ -9,13 +9,13 @@
 					<img src="{{ asset('images/home/product1.jpg') }}" alt="" />
 					<h2>$56</h2>
 					<p>Easy Polo Black Edition</p>
-					<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+					<a href="{{ route('public.product_detail') }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 				</div>
 				<div class="product-overlay">
 					<div class="overlay-content">
 						<h2>$56</h2>
 						<p>Easy Polo Black Edition</p>
-						<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+						<a href="{{ route('public.product_detail') }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 					</div>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 					<img src="{{ asset('images/home/product2.jpg') }}" alt="" />
 					<h2>$56</h2>
 					<p>Easy Polo Black Edition</p>
-					<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+					<a href="{{ route('public.product_detail') }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 				</div>
 				<div class="product-overlay">
 					<div class="overlay-content"><h2>$56</h2><p>Easy Polo Black Edition</p>

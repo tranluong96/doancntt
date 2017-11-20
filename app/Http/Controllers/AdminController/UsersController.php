@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use App\User;
 use App\permission_user;
+use App\Products;
 
 class UsersController extends Controller
 {
@@ -24,6 +25,14 @@ class UsersController extends Controller
     {
         $aruser = User::all();
         return view('admin.user.index', ['arUser'=>$aruser]);
+    }
+
+
+    public function seeProfile($id)
+    {
+        $arUser = User::find($id);
+        $count  = count(Products::where('user_id','=',$id)->get());
+        return view('admin.user.User_detail',['aruser'=>$arUser,'count'=>$count]);
     }
 
     /**

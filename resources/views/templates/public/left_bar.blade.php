@@ -1,3 +1,8 @@
+<?php 
+	use App\categories;
+	$categories = categories::all();
+?>
+
 <h2>Category</h2>
 	<div class="panel-group category-products" id="accordian"><!--category-productsr-->
 		@foreach($categories as $key => $value)

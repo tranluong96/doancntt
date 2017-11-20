@@ -4,7 +4,11 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
+           @if(Session::get('PICTURE') != "")
+                <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}"  class="user-image" alt="User Image">
+              @else
+                <img src="{{ asset('images/logo/avata.png') }}"  class="user-image" alt="User Image">
+              @endif
         </div>
         <div class="pull-left info">
           <p>

@@ -60,7 +60,50 @@
         </div><!--/product-information-->
     </div>
 </div><!--/product-details-->
-
+<div class="row">
+    <div class="col-xs-6">
+        
+    </div>
+    <div class="tab-pane fade active in" id="reviews" >
+        <div class="col-sm-12">
+            <ul>
+                <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
+                <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
+                <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
+            </ul>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <p><b>Write Your Review</b></p>
+            <div class="row">
+                <div class="form-group">
+                    <label for="">Comment product</label>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <img src="{{ asset('images/logo/avata.png') }}" alt="" style="width: 50px ; height: 50px;" />
+                            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do </span>
+                        </div>
+                        <div class="col-xs-offset-1 col-xs-12">
+                            <div class="form-group">
+                                <img src="{{ asset('images/logo/avata.png') }}" alt="" style="width: 50px ; height: 50px;" />
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <form action="#" method="post">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <img src="{{ asset('images/logo/avata.png') }}" alt="" style="width: 80px ; height: 80px;"/>
+                    <input type="text" class="form-control" placeholder="comment..." style="display: inline;"/>
+                </div>
+                <div class="form-group">
+                    <a href="javascript:void(0)" class="btn btn-success">Comment</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="category-tab shop-details-tab"><!--category-tab-->
     <div class="col-sm-12">
         <ul class="nav nav-tabs">
@@ -223,7 +266,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="tab-pane fade active in" id="reviews" >
             <div class="col-sm-12">
                 <ul>
