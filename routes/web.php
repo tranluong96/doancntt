@@ -14,9 +14,19 @@ Route::group(['namespace' => 'LayoutController'], function () {
             'uses'  => 'ProductController@index',
             'as'    => 'public.products'
         ]);
-        Route::get('/detail-product',[
+        Route::get('detail-{slug}-{id}',[
             'uses'  => 'ProductController@product_detail',
             'as'    => 'public.product_detail'
+        ]);
+
+        Route::post('ajax-add-comment',[
+            'uses'  => 'ProductController@ajaxComment',
+            'as'    => 'public.ajax.Addcomment'
+        ]);
+
+        Route::post('Ajax-getComment',[
+            'uses'  => 'ProductController@ajaxGetComment',
+            'as'    => 'public.ajax.getComment'
         ]);
     });
 
@@ -45,6 +55,7 @@ Route::group(['namespace' => 'LayoutController'], function () {
             'as'    => 'public.login'
         ]);
     });
+    
     
 });
 
@@ -201,6 +212,15 @@ Route::group(['namespace' => 'AdminController','prefix' => 'adminpc', 'middlewar
         Route::get('',[
             'uses'  => 'CommentController@index',
             'as'    => 'admin.comment'
+        ]);
+
+        Route::post('delete-comment',[
+            'uses'  => 'CommentController@Ajaxdestroy',
+            'as'    => 'admin.ajax.delete'
+        ]);
+        Route::post('destroy-much',[
+            'uses'  => 'CommentController@destroy',
+            'as'    => 'admin.destroy.comment'
         ]);
     });
     Route::group(['prefix' => 'parameters'], function () {

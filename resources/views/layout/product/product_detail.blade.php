@@ -1,9 +1,22 @@
 @extends('templates.public.templates')
 @section('content')	
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+      </div>
+      <div class="modal-body bg-success">
+        <p></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="product-details"><!--product-details-->
     <div class="col-sm-5">
         <div class="view-product">
-            <img src="{{ asset('images/product-details/1.jpg') }}" alt="" />
+            <img src="{{ asset('storage/products/'.$product->picture) }}" alt="" />
             <h3>ZOOM</h3>
         </div>
         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -41,13 +54,12 @@
     <div class="col-sm-7">
         <div class="product-information"><!--/product-information-->
             <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="" />
-            <h2>Anne Klein Sleeveless Colorblock Scuba</h2>
-            <p>Web ID: 1089772</p>
-            <img src="{{ asset('images/product-details/rating.png') }}" alt="" />
+            <h2>{{ $product->name}}</h2>
+            <p>Web ID: {{ $product->code}}</p>
             <span>
-                <span>US $59</span>
+                <span> ${{ $product->price }}</span>
                 <label>Quantity:</label>
-                <input type="text" value="3" />
+                <input type="text" value="0" />
                 <button type="button" class="btn btn-fefault cart">
                     <i class="fa fa-shopping-cart"></i>
                     Add to cart
@@ -64,43 +76,46 @@
     <div class="col-xs-6">
         
     </div>
-    <div class="tab-pane fade active in" id="reviews" >
+    <div class="" id="" >
         <div class="col-sm-12">
             <ul>
-                <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
+                <li><a href=""><i class="fa fa-calendar-o"></i>{{ $product->created_at }}</a></li>
             </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p><b>Write Your Review</b></p>
+            <p><strong>Vài nét về sản phẩm:</strong></p>
+            <p>{{ $product->detail}}</p>
             <div class="row">
                 <div class="form-group">
                     <label for="">Comment product</label>
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <img src="{{ asset('images/logo/avata.png') }}" alt="" style="width: 50px ; height: 50px;" />
-                            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do </span>
-                        </div>
-                        <div class="col-xs-offset-1 col-xs-12">
-                            <div class="form-group">
-                                <img src="{{ asset('images/logo/avata.png') }}" alt="" style="width: 50px ; height: 50px;" />
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do </span>
-                            </div>
-                        </div>
+                    <div class="col-xs-12" id="commentList">
+                        
                     </div>
                 </div>
             </div>
-            
-            <form action="#" method="post">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <img src="{{ asset('images/logo/avata.png') }}" alt="" style="width: 80px ; height: 80px;"/>
-                    <input type="text" class="form-control" placeholder="comment..." style="display: inline;"/>
+
+            <div class="table tabel-bordered">
+                <hr style="color: #bbb;">
+                <form action="javascript:void(0)" method="">
+                <input type="hidden" value="{{ $product->id }}" id="id_product">
+                <input type="hidden" value="0" id="id_user">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-2" style="width: 10.666667% !important;">
+                            <img src="{{ asset('images/logo/avata.png') }}" alt="" style="width: 80px ; height: 80px; display: inline;"/>
+                        </div>
+                        <div class="col-xs-8">
+                            <label for="">Bình luận</label>
+                            <input type="text" id="content" class="form-control" placeholder="comment..." style=""/>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <a href="javascript:void(0)" class="btn btn-success">Comment</a>
+                <div class="row col-xs-10">
+                    <div class="form-group text-right">
+                        <a href="javascript:void(0)" onclick="addComment()" class="btn btn-success">Comment</a>
+                    </div>
                 </div>
             </form>
+            </div>
+            
         </div>
     </div>
 </div>
@@ -383,4 +398,57 @@
             </a>			
     </div>
 </div><!--/recommended_items-->
+@section('script')
+    <script type="text/javascript">
+        function addComment()
+        {
+            var id_product = $('#id_product').val();
+            var id_user = $('#id_user').val();
+            var content = $('#content').val();
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('public.ajax.Addcomment')}}",
+                type: 'post',
+                data: {aid_product: id_product, aid_user:id_user, acontent:content},
+                success: function(data){
+                    $('.modal-body').html(data);
+                    $('.modal').css({display:'block', transition:'0.3 all'});
+                    setTimeout(function(){ $('.modal').fadeOut() }, 500);
+                    $('#content').val("");
+                },
+                error: function (){
+                    alert('Có lỗi xảy ra');
+                }
+            });
+        }
+        $(function(){
+
+             function getComments(){
+                setTimeout(function(){
+                    var a = $('#id_product').val();
+                    $.ajaxSetup({
+                        headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                      });
+                    $.ajax({
+                        url: "{{route('public.ajax.getComment')}}",
+                        type: 'post',
+                        data: {aid:a},
+                        success: function(data){
+                           $('#commentList').html(data);
+                        },
+                        complete: getComments
+                    });
+                },50);
+            };
+            getComments();
+
+        })
+    </script>
+@stop
 @stop

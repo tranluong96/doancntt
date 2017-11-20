@@ -5,6 +5,7 @@ namespace App\Http\Controllers\LayoutController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\categories;
+use App\Products;
 
 class IndexController extends Controller
 {
@@ -16,7 +17,8 @@ class IndexController extends Controller
     public function index()
     {
         $arCate = categories::all();
-        return view('layout.index',['categories'=>$arCate]);
+        $arProducts = Products::all();
+        return view('layout.index',['categories'=>$arCate, 'products'=>$arProducts]);
     }
 
     /**
