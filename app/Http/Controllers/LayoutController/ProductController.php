@@ -4,7 +4,11 @@ namespace App\Http\Controllers\LayoutController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Products;
+use App\categories;
+use App\parameter_detail;
+use App\parameters;
 use App\Comments;
 
 class ProductController extends Controller
@@ -16,14 +20,26 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('layout.product.index');
+        $products = Products::orderby('id','DESC')->paginate(10);
+        return view('layout.product.index',['products'=>$products]);
+    }
+
+    public function Product_Cate($slug, $id)
+    {
+        $arproducts = Products::where('category_id','=',$id)->paginate(10);
+        $arname     = categories::where('id','=',$id)->select('name')->get();
+        $name = $arname[0]->name; 
+        // dd($name);
+        return view('layout.product.product',['name'=>$name,'products'=> $arproducts]);
     }
 
     public function product_detail($slug,$id)
     {
         // dd(123);
         $arproduct = Products::find($id);
-        return view('layout.product.product_detail',['product'=>$arproduct]);
+        $arparameters = DB::table('Products')->join('parameter_detail','Products.id','=','parameter_detail.product_id')->join('parameters','parameter_detail.parameter_id','=','parameters.id')->select('parameter_detail.*','parameters.name')->where('Products.id','=',$id)->get();
+        // dd($arparameters);
+        return view('layout.product.product_detail',['product'=>$arproduct, 'parameters'=>$arparameters]);
     }
 
     public function ajaxComment(Request $request)

@@ -14,6 +14,12 @@ Route::group(['namespace' => 'LayoutController'], function () {
             'uses'  => 'ProductController@index',
             'as'    => 'public.products'
         ]);
+
+        Route::get('product-{slug}-{id}',[
+            'uses'  => 'ProductController@Product_Cate',
+            'as'    => 'public.Product_Cate'
+        ]);
+
         Route::get('detail-{slug}-{id}',[
             'uses'  => 'ProductController@product_detail',
             'as'    => 'public.product_detail'
@@ -47,6 +53,12 @@ Route::group(['namespace' => 'LayoutController'], function () {
             'uses'  => 'ContactController@index',
             'as'    => 'public.contact'
         ]);
+
+        Route::post('create-contact',[
+            'uses'  => 'ContactController@store',
+            'as'    => 'public.create.contact'
+        ]);
+
     });
 
     Route::group(['prefix' => 'login'], function () {

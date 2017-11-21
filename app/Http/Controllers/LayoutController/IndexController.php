@@ -16,7 +16,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $arCate = categories::all();
+        $arCate = categories::where('id','>',1)->get();
         $arProducts = Products::all();
         return view('layout.index',['categories'=>$arCate, 'products'=>$arProducts]);
     }

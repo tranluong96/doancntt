@@ -1,22 +1,42 @@
 @extends('templates.public.templates_index')
+@Section('title')
+	Home | E-Shopper
+@stop
 @section('content')	
 <div class="features_items"><!--features_items-->
 	<h2 class="title text-center">Features Items</h2>
 	@foreach( $products as $key => $value )
-	<?php $slug = str_slug($value->name); ?>
+	<?php 
+		$price = number_format($value->price,0,',','.');
+		$chieckhau=0;
+		$slug = str_slug($value->name); 
+		if ($value->discount  > 0) {
+			$phantram = 100 - $value->discount;
+			$chieckhau =($value->price * $phantram)/100;
+		}
+	?>
 		@if($value->picture != "")
+		@if( $value->active == 1 )
 	    <div class="col-sm-4">
 	        <div class="product-image-wrapper">
 	            <div class="single-products">
 	                <div class="productinfo text-center">
 	                    <img src="{{ asset('storage/products/'.$value->picture) }}" alt="" />
-	                    <h2>${{ $value->price }}</h2>
+	                    @if($value->discount > 0 )
+                    		<h2>${{ $chieckhau }}</h2>
+						@else
+                        	<h2>${{ $price }}</h2>
+                        @endif
 	                    <p>{{ $value->name }}</p>
 	                    <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 	                </div>
 	                <div class="product-overlay">
 	                    <div class="overlay-content">
-	                        <h2>${{ $value->price }}</h2>
+	                    	@if($value->discount > 0 )
+	                    		<h2>${{ $chieckhau }}</h2>
+							@else
+	                        	<h2>${{ $price }}</h2>
+	                        @endif
 	                        <p>{{ $value->name }}</p>
 	                        <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 	                    </div>
@@ -29,6 +49,7 @@
 	            </div>
 	        </div>
 	    </div>
+		@endif
 		@endif
     @endforeach
 	

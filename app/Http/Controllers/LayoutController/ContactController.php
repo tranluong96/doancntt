@@ -4,6 +4,7 @@ namespace App\Http\Controllers\LayoutController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\contacts;
 
 class ContactController extends Controller
 {
@@ -35,7 +36,16 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $date = date('Y-m-d');
+        $arContact = array(
+                    'name'  => trim($request->aname),
+                    'email' => trim($request->aemail),
+                    'content'=> trim($request->acontent),
+                    'created_at'=> $date
+                );
+        // dd($arContact);
+        contacts::insert($arContact);
+        return 'Send success, Thanks you !';
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('templates.public.templates_index')
-@section('title')
-    products news 
+@Section('title')
+    {{ $name }}
 @stop
 @section('content')	
 <div class="features_items"><!--features_items-->
@@ -55,11 +55,11 @@
     
     
 </div><!--features_items-->
-
-<div class="row">
+<div class="row text-center">
     <ul class="pagination">
-        {{ $products->links() }}
+       {{ $products->links() }}
     </ul>
 </div>
+
 
 @stop

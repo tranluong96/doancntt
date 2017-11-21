@@ -116,7 +116,7 @@ class OrdermanageController extends Controller
         $discount= trim($request->discount);
         $detail= trim($request->detail);
         $avata = $request->avata;
-
+        $date  = date('Y-m-d H:i:s');
         $inputs = $request->all();
         $rules = array(
             'name' => 'required|min:5',
@@ -161,6 +161,7 @@ class OrdermanageController extends Controller
                 'category_id' => $id,
                 'user_id' => $request->user_id,
                 'view' => 1,
+                'created_at' => $date,
                 );
             // dd($arProduct);
             if(Products::insert($arProduct)){
