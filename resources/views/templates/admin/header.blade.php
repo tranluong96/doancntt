@@ -69,22 +69,17 @@
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
+              <span class="label label-success" id="allContact"></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
+              <li class="header">You have <i id="countallcontact"></i> messages</li>
               <li>
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
+                <ul class="menu" id="get_arcontact">
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-
-                        @if(Session::get('PICTURE') != "")
-                          <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
-                        @else
                           <img src="{{ asset('images/logo/avata.png') }}" class="img-circle" alt="User Image">
-                        @endif
                       </div>
                       <h4>
                         Support Team
@@ -93,42 +88,8 @@
                       <p>Why not buy a new awesome theme?</p>
                     </a>
                   </li>
-                  <!-- end message -->
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        @if(Session::get('PICTURE') != "")
-                        <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
-                        @else
-                          <img src="{{ asset('images/logo/avata.png') }}" class="img-circle" alt="User Image">
-                        @endif
-                      </div>
-                      <h4>
-                        Sales Department
-                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        @if(Session::get('PICTURE') != "")
-                        <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
-                        @else
-                          <img src="{{ asset('images/logo/avata.png') }}" class="img-circle" alt="User Image">
-                        @endif
-                      </div>
-                      <h4>
-                        Reviewers
-                        <small><i class="fa fa-clock-o"></i> 2 days</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
                 </ul>
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
@@ -226,10 +187,12 @@
               <!-- User image -->
               <li class="user-header">
                  @if(Session::get('PICTURE') != "")
-                          <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
-                        @else
-                          <img src="{{ asset('images/logo/avata.png') }}" class="img-circle" alt="User Image">
-                        @endif
+                  <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image" style="height: 90px;
+    width: 90px;">
+                @else
+                  <img src="{{ asset('images/logo/avata.png') }}" class="img-circle" alt="User Image" style="height: 90px;
+    width: 90px;">
+                @endif
                 <p>
                 @if(Session::get('FULLNAME') != "")
                   {{ Session::get('FULLNAME')}}
@@ -258,4 +221,3 @@
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-  

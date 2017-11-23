@@ -107,6 +107,52 @@
     });
   });
 </script>
+<script type="text/javascript">
+  $(function(){
+    function countallcontact(){
+        setTimeout(function(){
+            var a = 1;
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+            $.ajax({
+                url: "{{route('admin.ajax.allcontact')}}",
+                type: 'post',
+                data: {data:a},
+                success: function(data){
+                   $('#countallcontact').html(data);
+                   $('#allContact').html(data);
+                },
+                complete: countallcontact
+            });
+        },200);
+    };
+    countallcontact();
+
+    function getarcontact(){
+        setTimeout(function(){
+            var a = 1;
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+            $.ajax({
+                url: "{{route('admin.ajax.getallcontact')}}",
+                type: 'post',
+                data: {data:a},
+                success: function(data){
+                   $('#get_arcontact').html(data);
+                },
+                complete: getarcontact
+            });
+        },200);
+    };
+    getarcontact();
+  });
+</script>
 @yield('script')
 </body>
 </html>

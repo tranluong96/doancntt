@@ -18,6 +18,8 @@ class CreateContactTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->text('content');
+            $table->integer('view')->unsigned()->default(0);
+            $table->integer('star')->unsigned()->default(0);
             $table->timestamps();
         });
     }

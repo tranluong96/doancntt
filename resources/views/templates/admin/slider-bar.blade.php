@@ -1,3 +1,4 @@
+
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -79,12 +80,10 @@
           </a>
         </li>
         <li>
-          <a href="pages/mailbox/mailbox.html">
-            <i class="fa fa-envelope"></i> <span>Mailbox</span>
+          <a href="{{ route('admin.contact.index') }}">
+            <i class="fa fa-envelope"></i> <span>Contacts</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
+              <small class="label pull-right bg-yellow" id="countcontact"></small>
             </span>
           </a>
         </li>
@@ -97,3 +96,29 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+@section('script')
+  <script type="text/javascript">
+    $(function(){
+      function getContact(){
+          setTimeout(function(){
+              var a = 1;
+              $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+              $.ajax({
+                  url: "{{route('admin.ajax.getcontact')}}",
+                  type: 'post',
+                  data: {data:a},
+                  success: function(data){
+                     $('#countcontact').html(data);
+                  },
+                  complete: getContact
+              });
+          },200);
+      };
+      getContact();
+    })
+  </script>
+@stop

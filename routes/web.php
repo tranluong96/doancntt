@@ -330,6 +330,43 @@ Route::group(['namespace' => 'AdminController','prefix' => 'adminpc', 'middlewar
         ]);
     });
 
+    Route::group(['prefix' => 'Contacts'], function () {
+
+        Route::get('',[
+            'uses'  => 'ContactController@index',
+            'as'    => 'admin.contact.index'
+        ]);
+
+        Route::post('ajax-count-contact',[
+            'uses'  => 'ContactController@getcount',
+            'as'    => 'admin.ajax.getcontact'
+        ]);
+        Route::post('ajax-setStar-contact',[
+            'uses'  => 'ContactController@setStar',
+            'as'    => 'admin.ajax.setStar'
+        ]);
+
+        Route::post('ajax-getall-contact',[
+            'uses'  => 'ContactController@getall',
+            'as'    => 'admin.ajax.allcontact'
+        ]);
+
+        Route::post('ajaxall-contact',[
+            'uses'  => 'ContactController@arContact',
+            'as'    => 'admin.ajax.getallcontact'
+        ]);
+
+        Route::post('ajaxView-contact',[
+            'uses'  => 'ContactController@View',
+            'as'    => 'admin.ajax.Viewcontact'
+        ]);
+
+        Route::post('destroy-contacts',[
+            'uses'  => 'ContactController@destroy',
+            'as'    => 'admin.destroy.contact'
+        ]);
+
+    });
 
 
 });
