@@ -2,7 +2,8 @@
 @section('content')
 <?php 
 	use App\contacts;
-	$countall = count(contacts::all());
+  $countall = count(contacts::all());
+	$countallstar = count(contacts::where('star','=',1)->get());
 ?>
 <!-- Modal -->
 <div class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -63,7 +64,7 @@
             <li class="active" ><a href="javascript:void(0)" onclick="changerDisplaymes()"><i class="fa fa-inbox"></i> Inbox
               <span class="label label-primary pull-right">{{ $countall }}</span></a></li>
             <li class="active"><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-            <li  class="active"><a href="javascript:void(0)" onclick="changerDisplayStar()" ><i class="fa fa-star"></i>Star</a></li>
+            <li  class="active"><a href="javascript:void(0)" onclick="changerDisplayStar()" ><i class="fa fa-star"></i>Star <span class="label bg-yellow pull-right">{{ $countallstar }}</span></a></li>
             <li class="active"><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
           </ul>
         </div>
