@@ -108,7 +108,52 @@
   });
 </script>
 <script type="text/javascript">
+  function modelView(a)
+    {
+      $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{route('admin.ajax.Viewcontact')}}",
+            type: 'post',
+            cache: false,
+            data: {aid: a },
+            success: function(data){
+              $('#name').val(data.name);
+              $('#email').val(data.email);
+              $('#content').val(data.content);
+              $('.modal').css({display:'block', transition:'0.3 all'});
+            },
+            error: function (){
+                alert('Có lỗi xảy ra');
+            }
+        });
+      
+    }
   $(function(){
+    function getContact(){
+          setTimeout(function(){
+              var a = 1;
+              $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+              $.ajax({
+                  url: "{{route('admin.ajax.getcontact')}}",
+                  type: 'post',
+                  data: {data:a},
+                  success: function(data){
+                     $('#countcontact').html(data);
+                  },
+                  complete: getContact
+              });
+          },200);
+      };
+      getContact();
+      
     function countallcontact(){
         setTimeout(function(){
             var a = 1;
@@ -148,7 +193,7 @@
                 },
                 complete: getarcontact
             });
-        },200);
+        },500);
     };
     getarcontact();
   });

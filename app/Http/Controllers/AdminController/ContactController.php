@@ -42,7 +42,7 @@ class ContactController extends Controller
         $contact = contacts::all();
         $str ="";
         foreach ($contact as $key => $value) {
-            $str .= '<li>
+            $str .= '<li onclick="modelView('.$value->id.')">
                         <a href="#">
                           <div class="pull-left">
                               <img src="../images/logo/avata.png" class="img-circle" alt="User Image">

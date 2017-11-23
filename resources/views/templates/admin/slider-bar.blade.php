@@ -96,29 +96,3 @@
     </section>
     <!-- /.sidebar -->
   </aside>
-@section('script')
-  <script type="text/javascript">
-    $(function(){
-      function getContact(){
-          setTimeout(function(){
-              var a = 1;
-              $.ajaxSetup({
-                  headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-                });
-              $.ajax({
-                  url: "{{route('admin.ajax.getcontact')}}",
-                  type: 'post',
-                  data: {data:a},
-                  success: function(data){
-                     $('#countcontact').html(data);
-                  },
-                  complete: getContact
-              });
-          },200);
-      };
-      getContact();
-    })
-  </script>
-@stop
