@@ -107,46 +107,59 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer text-right">
-          <button type="submit" class="btn btn-primary">Nhập Đơn Hàng</button>
+          <button type="submit" class="btn btn-success">Nhập Đơn Hàng</button>
         </div>
       </form>
     </div>
+  </div>
+</div>
     <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Danh Sách Đơn Hàng Đã Nhập</h3>
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <div class="col-xs-5 text-left">
+              <h3 class="box-title">Danh Sách Đơn Hàng Đã Nhập</h3>
+            </div>
+            <div class="col-xs-2 pull-right">
+              <h3 class="box-title">
+                <?php $date = date("Y-m-d"); ?>
+                <form action="{{ route('admin.excel.addorder') }}" method="post">
+                  {{ csrf_field() }}
+                  <input type="hidden" value="{{ $date }}" name="date">
+                  <button type="submit" onclick="" class="btn btn-primary">Xuất file Excels</button>
+                </form>
+              </h3>
+            </div>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            
+            <input type="hidden" value="{{ $date }}" id="datetime">
+            <table id="example2" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>Stt</th>
+                <th>id_Code</th>
+                <th>Số Lượng</th>
+                <th>Giá nhập vào</th>
+                <th>Giá bán ra </th>
+                <th>Tổng tiền</th>
+              </tr>
+              </thead>
+              <tbody id="getValueInOrder">
+                
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <?php $date = date("Y-m-d"); ?>
-          <input type="hidden" value="{{ $date }}" id="datetime">
-          <table id="example2" class="table table-bordered table-hover">
-            <thead>
-            <tr>
-              <th>Stt</th>
-              <th>id_Code</th>
-              <th>Số Lượng</th>
-              <th>Giá nhập vào</th>
-              <th>Giá bán ra </th>
-              <th>Tổng tiền</th>
-            </tr>
-            </thead>
-            <tbody id="getValueInOrder">
-              
-            </tbody>
-          </table>
-        </div>
-        <!-- /.box-body -->
+        <!-- /.box -->
       </div>
-      <!-- /.box -->
-    </div>
     <!-- /.col -->
   </div>
 </div>
 @section('script')
-  <script type="text/javascript">
-    
+  <script type="text/javascript"> 
     function getListInOrder(){
         setTimeout(function(){
         var date = $('#datetime').val();

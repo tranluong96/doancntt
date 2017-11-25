@@ -45,7 +45,7 @@ class ContactController extends Controller
             $str .= '<li onclick="modelView('.$value->id.')">
                         <a href="#">
                           <div class="pull-left">
-                              <img src="../images/logo/avata.png" class="img-circle" alt="User Image">
+                              <img src="" class="img-circle" alt="User Image">
                           </div>
                           <h4>
                             '.$value->name.'

@@ -21,7 +21,7 @@ class CreateParametersTable extends Migration
         });
         DB::table('parameters')->insert(
             array(
-                'name' => 'Chưa xác định'
+                ['name' => 'Chưa xác định']
             )
         );
     }

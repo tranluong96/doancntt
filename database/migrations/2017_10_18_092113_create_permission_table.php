@@ -21,7 +21,10 @@ class CreatePermissionTable extends Migration
         });
         DB::table('permission')->insert(
             array(
-                'name' => "chưa xác định"
+                ['name' => "chưa xác định"],
+                ['name' => "Administrator"],
+                ['name' => "Nhân Viên"],
+                ['name' => "Khách hàng"]
             )
         );
     }

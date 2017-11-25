@@ -368,6 +368,14 @@ Route::group(['namespace' => 'AdminController','prefix' => 'adminpc', 'middlewar
 
     });
 
+    Route::group(['prefix' => 'Excels'], function () {
+
+        Route::post('export-excel-addorder',[
+            'uses'  => 'EcxelController@ExportAddOrder',
+            'as'    => 'admin.excel.addorder'
+        ]);
+
+    });
 
 });
 route::group(['prefix'=> 'adminpc', 'namespace'=> 'Auth'], function(){
