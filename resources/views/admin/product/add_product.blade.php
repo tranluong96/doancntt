@@ -27,8 +27,6 @@
                 <label for="">Mã Sản Phẩm</label>
                 <input type="text" name="code" class="form-control" placeholder="Enter code product">
               </div>
-            </div>
-            <div class="col-xs-3">
               <div class="form-group">
                 <label for="">Tên Sản Phẩm</label>
                 <input type="text" class="form-control" name="name" placeholder="Enter name product">
@@ -41,8 +39,6 @@
                   <option selected="selected" value="0">---mời chọn---</option>
                 </select>
               </div>
-            </div>
-            <div class="col-xs-2">
               <div class="form-group">
                 <label>Trạng thái hiển thị</label>
                 <select name="display" class="form-control" style="width: 100%;">
@@ -51,40 +47,38 @@
                 </select>
               </div>
             </div>
+            <div class="col-xs-2">
+              <div class="form-group">
+                  <label for="">Chọn Avatar</label> <br>
+                  <div id="myfileupload">
+                      <input type="file" name="avata" id="uploadfile" onchange="readURL(this);">
+                  </div>
+                  <div id="thumbbox">
+                      <img height="100" class="thumbnail" src="{{ asset('images/logo/avata.png') }}" width="100" alt="Thumb image" id="thumbimage">
+                      <a class="removeimg" href="javascript:"></a>
+                   </div>
+                   <div id="boxchoice">
+                      <a href="javascript:" class="Choicefile">Browser</a>
+                      <p style="clear:both"></p>
+                   </div>
+                    <label class="filename"></label>
+              </div>
+            </div>
           </div>
-          
           <div class="row">
             <div class="col-xs-12">
               <div class="form-group">
                 <label for="">Chi Tiết Sản Phẩm</label>
-                <textarea class="form-control" rows="3" name="detail"></textarea>
+                <textarea class="ckeditor form-control" rows="3" name="detail"></textarea>
               </div>
             </div>
           </div>
-          <div class="">
-            <div class="col-xs-12">
-              <div class="col-xs-6">
-                <div class="form-group">
-                  <label for="">Chọn Avatar</label>
-                  <input type="file" id="" name="avata">
-                  <p class="help-block">Chỉ được chọn 1 ảnh Avatar</p>
-                </div>
-              </div>
-              <!-- <div class="col-xs-6">
-                <div class="form-group">
-                  <label for="exampleInputFile">Chọn Ảnh về sản phẩm</label>
-                  <input type="file" id="exampleInputFile">
-                  <p class="help-block">chọn nhiều Hình ảnh về sản phẩm</p>
-                </div>
-              </div> -->
-            </div>
-          <div>
         </div>
         <!-- /.box-body -->
         <div class="box-footer text-left">
-          <div class="row">
-            <div class="col-xs-3">
-              <button type="submit" class="btn btn-primary">Add New Product</button>
+          <div class="row col-xs-offset-7">
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary">Add Product</button>
             </div>
             <div class="col-xs-3">
               <a href="{{ route('admin.listproduct') }}" class="btn btn-default">Cancel</a>

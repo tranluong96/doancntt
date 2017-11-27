@@ -57,7 +57,7 @@
                 <input type="text" name="name" class="form-control" placeholder="Enter name product">
               </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
               <div class="form-group">
                 <label for=" ">Giá Nhập Vào</label>
                 <input type="number" name="price_old" class="form-control" id="" placeholder="">
@@ -77,31 +77,37 @@
                   <input type="number" value="0" name="discount" class="form-control">
               </div>
             </div>
+            <div class="col-xs-2">
+              <div class="form-group">
+                  <label>Chọn avata sản phẩm</label> <br>
+                    <div id="myfileupload">
+                        <input type="file" name="avata" id="uploadfile" onchange="readURL(this);">
+                    </div>
+                    <div id="thumbbox">
+                        <img height="100" class="thumbnail" src="{{ asset('images/logo/avata.png') }}" width="100" alt="Thumb image" id="thumbimage">
+                        <a class="removeimg" href="javascript:"></a>
+                     </div>
+                     <div id="boxchoice">
+                        <a href="javascript:" class="Choicefile">Browser</a>
+                        <p style="clear:both"></p>
+                     </div>
+                      <label class="filename"></label>
+                </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
               <div class="form-group">
                 <label for=" ">Chi Tiết Sản Phẩm</label>
-                <textarea name="detail" class="form-control" rows="3"></textarea>
+                <textarea name="detail" class="ckeditor form-control" rows="3"></textarea>
               </div>
             </div>
           </div>
           <div class="">
             <div class="col-xs-12">
               <div class="col-xs-6">
-                <div class="form-group">
-                  <label for="">Chọn Avatar</label>
-                  <input name="avata" type="file" id="">
-                  <p class="help-block">Chỉ được chọn 1 ảnh Avatar</p>
-                </div>
+                
               </div>
-              <!-- <div class="col-xs-6">
-                <div class="form-group">
-                  <label for="">Chọn Ảnh về sản phẩm</label>
-                  <input type="file" id="">
-                  <p class="help-block">chọn nhiều Hình ảnh về sản phẩm</p>
-                </div>
-              </div> -->
             </div>
           <div>
         </div>

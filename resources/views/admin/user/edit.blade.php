@@ -11,26 +11,41 @@
       <form action="{{ route('admin.user.update',['id'=> $aruser->id]) }}" enctype="multipart/form-data" method="post" role="form">
         {{ csrf_field() }}
         <div class="box-body">
-            <div class="col-xs-4">
-                <div class="form-group">
-                    <label for="">UserName</label>
-                    <input type="text" name="username" value="{{$aruser->name}}" class="form-control" disabled="">
+            <div class="row">
+                <div class="col-xs-6">
+                     <div class="form-group">
+                        <label for="">UserName</label>
+                        <input type="text" name="username" value="{{$aruser->name}}" class="form-control" disabled="">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Xác nhận bằng Mật Khẩu</label>
+                        <input type="password" name="password_old" value="" class="form-control">
+                        @if(Session::has('msg-e'))
+                            <div class="alert alert-danger alert-dismissable">{{ Session::get('msg-e') }}</div>
+                        @endif
+                        @if ($errors->has('password_old'))
+                            <p class="has-error alert-danger">{{$errors->first('password_old')}}</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <label for="">avatar</label>
+                        <figure>
+                            @if( $aruser->picture != "")
+                                <img src="{{ asset('storage/admins/'.$aruser->picture) }}" alt="" style="width: 200px; height: 150px;" class="thumbnail" >
+                            @else
+                                <img src="{{ asset('images/logo/avata.png') }}" title="hình ảnh" class="thumbnail"  style="width: 200px; height: 150px;" />
+                            @endif
+                            <input type="checkbox" class="minimal-red"  name="delete_picture" value="yes" onclick="var tb=confirm('Bạn có muốn xóa {{$aruser->picture}} không ?');if(tb==true){return true;}else{return false;};" /> Delete
+                        </figure>
+                        <hr>
+                        <input type="file" name="avata" value="" class="form-control">
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-4">
-                <div class="form-group">
-                <label for="">Password cũ</label>
-                <input type="password" name="password_old" value="" class="form-control">
-                @if(Session::has('msg-e'))
-                    <div class="alert alert-danger alert-dismissable">{{ Session::get('msg-e') }}</div>
-                @endif
-                @if ($errors->has('password_old'))
-                    <p class="has-error alert-danger">{{$errors->first('password_old')}}</p>
-                @endif
-            </div>
-            </div>
-            
-            <div class="col-xs-4">
+                
+            <div class="col-xs-12">
                 <div class="form-group">
                 <label for="">Gmail</label>
                 <input type="email" name="gmail" value="{{ $aruser->email }}" class="form-control">
@@ -57,23 +72,13 @@
                     @endif
                 </div>    
             </div>
-            
-            <div class="form-group">
-                <label for="">avatar</label>
-                <figure>
-                    @if( $aruser->picture != "")
-                        <img src="{{ asset('storage/admins/'.$aruser->picture) }}" alt="" style="width: 200px; height: 150px;" class="thumbnail" >
-                    @else
-                        <img src="{{ asset('images/logo/avata.png') }}" title="hình ảnh" class="thumbnail"  style="width: 200px; height: 150px;" />
-                    @endif
-                    <input type="checkbox" class="minimal-red"  name="delete_picture" value="yes" onclick="var tb=confirm('Bạn có muốn xóa {{$aruser->picture}} không ?');if(tb==true){return true;}else{return false;};" /> Delete
-                </figure>
-                <hr>
-                <input type="file" name="avata" value="" class="form-control">
+            <div class="xol-xs-12">
+                
             </div>
+            
         </div>
         <!-- /.box-body -->
-        <div class="box-footer text-left">
+        <div class="box-footer text-center">
           <button type="submit" class="btn btn-primary">Update</button>
         </div>
       </form>
