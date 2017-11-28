@@ -116,7 +116,7 @@
 								<a href="javascript:void(0)" onclick="setStar({{$value->id}},0)"><i class="fa fa-star text-black"></i></a>
 			                	@endif
 			                </td>
-			                <td class="mailbox-name" onclick="modalView({{ $value->id }})"><a href="read-mail.html">{{ $value->name }}</a></td>
+			                <td class="mailbox-name" onclick="modalView({{ $value->id }})"><a href="javascript:void(0)">{{ $value->name }}</a></td>
 			                <td class="mailbox-subject"><b>{{ $value->content }}</b>
 			                </td>
 			                <td class="mailbox-attachment"></td>
@@ -213,4 +213,32 @@
 </div>
 
   <!-- /.row -->
+  @section('script')
+    <script type="text/javascript">
+      function modalView(a)
+      {
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+          url: "{{route('admin.ajax.Viewcontact')}}",
+          type: 'post',
+          cache: false,
+          data: {aid: a },
+          success: function(data){
+            $('#name').val(data.name);
+            $('#email').val(data.email);
+            $('#content').val(data.content);
+            $('.modal').css({display:'block', transition:'0.3 all'});
+          },
+          error: function (){
+            alert('Có lỗi xảy ra');
+          }
+        });
+        
+      }
+    </script>
+  @stop
   @stop

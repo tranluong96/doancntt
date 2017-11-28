@@ -11,7 +11,6 @@
 		$slug = str_slug($value->name); 
 	?>
 		@if($value->picture != "")
-		@if( $value->active == 1 )
 	    <div class="col-sm-4">
 	        <div class="product-image-wrapper">
 	            <div class="single-products">
@@ -36,7 +35,6 @@
 	            </div>
 	        </div>
 	    </div>
-		@endif
 		@endif
     @endforeach
 	

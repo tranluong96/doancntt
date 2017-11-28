@@ -10,7 +10,6 @@ use App\categories;
 use App\paracatedetail;
 use App\parameter_detail;
 
-
 class ParameterController extends Controller
 {
     /**
@@ -140,6 +139,7 @@ class ParameterController extends Controller
         $obj = parameters::find($id);
 
         if (count(paracatedetail::where('parameters_id','=',$id)->get()) > 0) {
+
             paracatedetail::where('parameters_id','=',$id)->delete();
         }
 

@@ -86,8 +86,6 @@
             </ul>
             <p><strong>Vài nét về sản phẩm:</strong></p>
             <p>{{ $product->detail}}</p>
-            
-            
         </div>
     </div>
 </div>
@@ -212,6 +210,41 @@
                         @endforeach
                     </tr>
                 </table>
+            </div>
+        </div>
+        <div class="tab-pane fade in" id="Comment" >
+            <div class="col-sm-12">
+                <div class="col-sm-offset-1">
+                    <div class="form-group">
+                        <label for="">Comment product</label>
+                        <div class="col-xs-12" id="commentList">
+                            
+                        </div>
+                    </div>
+                </div>
+            <div class="table tabel-bordered">
+                <hr style="color: #bbb;">
+                <form action="javascript:void(0)" method="">
+                    <input type="hidden" value="{{ $product->id }}" id="id_product">
+                    <input type="hidden" value="0" id="id_user">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-2" style="width: 10.666667% !important;">
+                                <img src="{{ asset('images/logo/avata.png') }}" alt="" style="width: 80px ; height: 80px; display: inline;"/>
+                            </div>
+                            <div class="col-xs-8">
+                                <label for="">Bình luận</label>
+                                <input type="text" id="content" class="form-control" placeholder="comment..." style=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-xs-10">
+                        <div class="form-group text-right">
+                            <a href="javascript:void(0)" onclick="addComment()" class="btn btn-success">Comment</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
             </div>
         </div>
         

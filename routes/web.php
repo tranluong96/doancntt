@@ -393,3 +393,6 @@ route::group(['prefix'=> 'adminpc', 'namespace'=> 'Auth'], function(){
         'as'    => 'admin.logout'
     ]);
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -73,6 +73,7 @@
                 <input type="number" name="quantity" class="form-control" id="" placeholder="">
              </div>
             </div>
+            
             <div class="col-xs-2">
               <div class="form-group">
                   <label>Chọn avata sản phẩm</label> <br>

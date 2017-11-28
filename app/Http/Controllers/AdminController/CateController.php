@@ -5,11 +5,12 @@ namespace App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Http\Requests\cateRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Validator;
+use App\Products;
 use App\categories;
 use App\parameters;
-use App\Products;
 use App\paracatedetail;
 use App\parameter_detail;
 
@@ -127,11 +128,12 @@ class CateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Request $request,$id)
     {
+        
         $arcate = categories::find($id);
         if ($id == $arcate->id) {
-
             if (count(categories::where('parent','=',$id)->get()) > 0) {
                 $idparent = categories::where('parent','=',$id)->get();
                 dd($idparent[0]->id);
@@ -148,7 +150,6 @@ class CateController extends Controller
                 }
                 categories::where('parent','=',$id)->delete();
             }
-            // exit();
             if (count(paracatedetail::where('categories_id','=',$id)->get()) > 0) {
                 paracatedetail::where('categories_id','=',$id)->delete();
             }

@@ -75,10 +75,5 @@
     </div>
 </div>
 </div>
-@section('script')
-    <script type="text/javascript" >
-        
-        
-    </script>
-@stop
+
 @stop

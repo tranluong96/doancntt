@@ -26,7 +26,7 @@ class CreateParacateTable extends Migration
                 'parameters_id' => 1,
                 'categories_id' => 1
             )
-        );   
+        );
     }
 
     /**

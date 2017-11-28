@@ -21,12 +21,13 @@ class CreateUsersTable extends Migration
             $table->string('fullname');
             $table->string('address');
             $table->string('picture');
+            $table->rememberToken();
             $table->timestamps();
         });
         DB::table('users')->insert(
             array(
                 'name' => 'admin',
-                'email'=> 'giacacsan@gmail.com',
+                'email'=> 'admin@gmail.com',
                 'password' => bcrypt("12345"),
                 'fullname' => "Administrator",
                 'address'  => "",

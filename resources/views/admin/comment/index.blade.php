@@ -72,5 +72,28 @@
     <!-- /.box -->
   </div>
 </div>
+@section
+<script type="text/javascript">
+  function delComment(id)
+{
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $.ajax({
+    url: "{{route('admin.ajax.delete')}}",
+    type: 'post',
+    data: {aid: id},
+    success: function(data){
+      $('#comment-'+data).fadeOut(1000);
+    },
+    error: function (){
+      alert('Có lỗi xảy ra');
+    }
+  });
+}
 
+</script>
+@stop
 @stop
