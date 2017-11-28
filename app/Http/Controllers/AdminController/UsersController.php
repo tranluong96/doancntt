@@ -104,7 +104,7 @@ class UsersController extends Controller
                     'user_id' => $arnewuser[0]['id'],
                     'permission_id' => 1
                 );
-                permission_user::insert($arpermis);
+                permission_users::insert($arpermis);
                 $request->session()->flash('msg-s','Thêm thành công');
                 return redirect()->route('admin.users');
             }else{
@@ -250,7 +250,7 @@ class UsersController extends Controller
             //xóa ảnh cũ
             Storage::delete('public/admins/'.$tenanhcu); // xóa trong file
         }
-        $arpermis = permission_user::where('user_id','=',$id)->get();
+        $arpermis = permission_users::where('user_id','=',$id)->get();
         DB::table('permission_user')->where('user_id', '=',$arpermis[0]->user_id)->delete();
         if ($objUser != null) {
             $objUser->delete();
