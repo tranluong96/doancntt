@@ -12,6 +12,7 @@ use Validator;
 use App\Products;
 use App\categories;
 use App\parameters;
+use App\Comments;
 use App\paracatedetail;
 use App\parameter_detail;
 
@@ -311,6 +312,11 @@ class ProductController extends Controller
             //xóa ảnh cũ
             Storage::delete('public/products/'.$tenanhcu); // xóa trong file
         }
+
+        if ( count(Comments::where('product_id','=',$id)->get()) > 0 ) {
+            Comments::where('product_id','=',$id)->delete();
+        }
+
         DB::table('parameter_detail')->where('product_id','=',$id)->delete();
 
         $arProduct->delete();

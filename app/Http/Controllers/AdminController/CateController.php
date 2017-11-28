@@ -5,9 +5,14 @@ namespace App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Http\Requests\cateRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Validator;
+use App\Products;
 use App\categories;
+use App\paracatedetail;
+use App\parameter_detail;
+
 
 
 class CateController extends Controller
@@ -123,11 +128,25 @@ class CateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Request $request,$id)
     {
+        
         $arcate = categories::find($id);
-        // dd($arcate);
         if ($id == $arcate->id) {
+            // dd($para);
+            if (count(paracatedetail::where('categories_id','=',$id)->get()) > 0 ) {
+                paracatedetail::where('categories_id','=',$id)->delete();
+            }
+
+            if (count(Products::where('category_id','=',$id)->get()) > 0) {
+                $ids = Products::where('category_id','=',$id)->select('id')->get();
+                if (count(parameter_detail::where('product_id','=',$ids[0]->id)->get()) > 0 ) {
+                    parameter_detail::where('product_id','=',$ids[0]->id)->delete();
+                }
+                Products::where('category_id','=',$id)->delete();
+            }
+            
             $arcate->delete();
             $request->session()->flash('msg-s', 'Delete thành công');
             return redirect()->route('admin.category');

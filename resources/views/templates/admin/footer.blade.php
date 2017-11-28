@@ -1,4 +1,41 @@
-<div class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="row">
+  <style type="text/css">
+    .Choicefile
+    {
+        display:block;
+        background:#0877D8;
+        border:1px solid #fff;
+        color:#fff;
+        width:100px;
+        text-align:center;
+        text-decoration:none;
+        cursor:pointer;
+        padding:5px 0px;
+    }
+    #uploadfile,.removeimg
+    {
+       display:none;
+    }
+    #thumbbox
+    {
+      position:relative;
+      width:100px;
+    }
+    .removeimg
+    {
+      background: url("http://png-3.findicons.com/files/icons/2181/34al_volume_3_2_se/24/001_05.png") repeat scroll 0 0 transparent;
+
+    height: 24px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 24px;
+
+    }
+</style>
+</div>
+<div class="row">
+  <div class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -28,6 +65,8 @@
     </div>
   </div>
 </div>
+</div>
+
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.3.8
@@ -65,6 +104,7 @@
 <script src="{{ asset('admin/plugins/iCheck/icheck.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ asset('admin/plugins/fastclick/fastclick.js') }}"></script>
+<script src="{{ asset('admin/plugins/ckeditor/ckeditor.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin/dist/js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
@@ -227,6 +267,45 @@
     };
     getarcontact();
   });
+</script>
+<script type="text/javascript">
+    function readURL(input,thumbimage) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#thumbimage").attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+            $("#thumbimage").show();
+        }
+        else {
+            $("#thumbimage").attr('src', input.value);
+            $("#thumbimage").show();
+        }
+        $('.filename').text($("#uploadfile").val());
+        $('.Choicefile').css('background', '#C4C4C4');
+        $('.Choicefile').css('cursor', 'default');
+        $(".Choicefile").unbind('click');
+        $(".removeimg").show();
+    }
+    $(document).ready(function () {
+        $(".Choicefile").bind('click', function () {
+            
+            $("#uploadfile").click();
+            
+        });
+        $(".removeimg").click(function () {
+            $("#thumbimage").attr('src', '{{ asset('images/logo/avata.png') }}').show();
+            $("#myfileupload").html('<input type="file" name="avata" id="uploadfile" onchange="readURL(this);" />');
+            $(".removeimg").hide();
+            $(".Choicefile").bind('click', function () {
+                $("#uploadfile").click();
+            });
+            $('.Choicefile').css('background','#0877D8');
+            $('.Choicefile').css('cursor', 'pointer');
+            $(".filename").text("");
+        });
+    })
 </script>
 @yield('script')
 </body>

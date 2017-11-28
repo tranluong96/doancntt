@@ -16,15 +16,16 @@
                     <label for="">UserName</label>
                     <input type="text" name="username" value="" class="form-control">
                 </div>
+                <div class="form-group">
+                    <label for="">Fullname</label>
+                    <input type="text" name="fullname" value="" class="form-control">
+                </div>
             </div>
             <div class="col-xs-4">
                 <div class="form-group">
                     <label for="">Password</label>
                     <input type="password" name="password" value="" class="form-control">
                 </div>
-            </div>
-            
-            <div class="col-xs-4">
                 <div class="form-group">
                     <label for="">password_confirmation</label>
                     <input type="password" name="password_confirmation" value="" class="form-control">
@@ -33,29 +34,34 @@
             
             <div class="col-xs-4">
                 <div class="form-group">
+                    <label for="">avatar</label> <br>
+                    <div id="myfileupload">
+                          <input type="file" name="avata" id="uploadfile" onchange="readURL(this);">
+                      </div>
+                      <div id="thumbbox">
+                          <img height="100" class="thumbnail" src="{{ asset('images/logo/avata.png') }}" width="100" alt="Thumb image" id="thumbimage">
+                          <a class="removeimg" href="javascript:"></a>
+                       </div>
+                       <div id="boxchoice">
+                          <a href="javascript:" class="Choicefile">Browser</a>
+                          <p style="clear:both"></p>
+                       </div>
+                        <label class="filename"></label>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="form-group">
                     <label for="">Gmail</label>
                     <input type="email" name="gmail" value="" class="form-control">
                 </div>
-            </div>
-            
-            <div class="col-xs-8">
                 <div class="form-group">
-                    <label for="">Fullname</label>
-                    <input type="text" name="fullname" value="" class="form-control">
+                    <label for="">Địa Chỉ</label>
+                    <input type="text" name="address" value="" class="form-control">
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="">Địa Chỉ</label>
-                <input type="text" name="address" value="" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="">avatar</label>
-                <input type="file" name="avata" value="" class="form-control">
             </div>
         </div>
         <!-- /.box-body -->
-        <div class="box-footer text-left">
+        <div class="box-footer text-center">
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
