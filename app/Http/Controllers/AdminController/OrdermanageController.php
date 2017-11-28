@@ -11,9 +11,9 @@ use Validator;
 use App\Products;
 use App\categories;
 use App\parameters;
-use App\paracatedetail;
-use App\parameter_detail;
-use App\transInput_order;
+use App\paracatedetails;
+use App\parameter_details;
+use App\transInput_orders;
 
 class OrdermanageController extends Controller
 {
@@ -46,7 +46,6 @@ class OrdermanageController extends Controller
         $price_old= trim($request->price_old);
         $price= trim($request->price);
         $quantity= trim($request->quantity);
-        $discount= trim($request->discount);
         $detail= trim($request->detail);
 
         $arhash = Products::where('code','=',$code)->get();
@@ -54,16 +53,13 @@ class OrdermanageController extends Controller
         $price_oldN = $arhash[0]->price_old;
         $quantityN = $arhash[0]->quantity;
         $detailN = $arhash[0]->detail;
-        $discountN = $arhash[0]->discount;
         if ($price != "") {
             $priceN = $price;
         }
         if ($price_old != "") {
             $price_oldN = $price_old;
         }
-        if ($discount != "") {
-            $discountN = $discount;
-        }
+       
         if ($quantity != "") {
             $quantityN = $quantity + $quantityN;
         }
@@ -71,7 +67,7 @@ class OrdermanageController extends Controller
             $detailN = $detail;
         }
         
-        Products::where('code','=',$code)->update(['price_old'=>$price_oldN, 'price'=>$priceN,'quantity'=>$quantityN,'discount'=>$discountN, 'detail'=> $detailN]);
+        Products::where('code','=',$code)->update(['price_old'=>$price_oldN, 'price'=>$priceN,'quantity'=>$quantityN, 'detail'=> $detailN]);
 
         $arNewProduct = Products::where('code','=',$code)->get();
 
@@ -88,7 +84,7 @@ class OrdermanageController extends Controller
             'created_at' => $created_at
         );
         // dd($array);
-        transInput_order::insert($array);
+        transInput_orders::insert($array);
 
         $request->session()->flash('msg-s', 'Nhập thành công !');
         return redirect()->route('admin.listproduct');
@@ -182,7 +178,7 @@ class OrdermanageController extends Controller
                     'created_at' => $created_at
                 );
                 // dd($array);
-                transInput_order::insert($array);
+                transInput_orders::insert($array);
                 $request->session()->flash('msg-s', 'Nhập thành công !');
                 return redirect()->route('admin.OrderIn');
             }else{
@@ -195,7 +191,7 @@ class OrdermanageController extends Controller
     public function ajaxGetInOrder(Request $request)
     {
         $date = $request->adate;
-        $array = transInput_order::where('created_at','=',$date)->get();
+        $array = transInput_orders::where('created_at','=',$date)->get();
         // dd($array);
         $str = "";
         foreach ($array as $key => $value) {

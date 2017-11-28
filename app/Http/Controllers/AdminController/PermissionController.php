@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Validator;
-use App\Permission;
-use App\permission_user;
+use App\Permissions;
+use App\permission_users;
 use App\User;
 
 class PermissionController extends Controller
 {
     public function index()
     {
-    	$arpermis = Permission::all();
+    	$arpermis = Permissions::all();
     	$arUser = DB::table('users')
             ->join('permission_user', 'users.id', '=', 'permission_user.user_id')
             ->select('users.*', 'permission_user.user_id', 'permission_user.id as idperuser', 'permission_user.permission_id' )
@@ -41,7 +41,7 @@ class PermissionController extends Controller
         $arpermission  = array(
         	'name' => $name, 
         );
-        Permission::insert($arpermission);
+        Permissions::insert($arpermission);
         $request->session()->flash('msg-s','Thêm Thành Công ');
                 return redirect()->route('admin.userPermission');
     }
@@ -64,7 +64,7 @@ class PermissionController extends Controller
     {
     	$id = $request->aid;
     	$name = trim($request->aname);
-		$objper = Permission::find($id);
+		$objper = Permissions::find($id);
     	$objper->name = $name;
     	$objper->update();
     	return $name;
@@ -75,7 +75,7 @@ class PermissionController extends Controller
     public function destroy(Request $request, $id)
     {
     	// dd('chạy');
-    	$arper = Permission::find($id);
+    	$arper = Permissions::find($id);
     	if ($arper == null ) {
     		$request->session()->flash('msg-e',"Xóa thất bại !");
     		return redirect()->route('admin.userPermission');

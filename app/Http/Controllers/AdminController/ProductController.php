@@ -13,8 +13,8 @@ use App\Products;
 use App\categories;
 use App\Comments;
 use App\parameters;
-use App\paracatedetail;
-use App\parameter_detail;
+use App\paracatedetails;
+use App\parameter_details;
 
 class ProductController extends Controller
 {
@@ -174,7 +174,7 @@ class ProductController extends Controller
                     'content'   => $nameContent
                 );
         // dd($aradd);
-        parameter_detail::insert($aradd);
+        parameter_details::insert($aradd);
 
         return 'Thêm thành công !';
     }
@@ -214,7 +214,7 @@ class ProductController extends Controller
     public function destroyPara(Request $request)
     {
         $id = $request->aid;
-        $arPara = parameter_detail::find($id);
+        $arPara = parameter_details::find($id);
         $arPara->delete();
         return 'Xóa thành công !';
     }
@@ -311,9 +311,9 @@ class ProductController extends Controller
             //xóa ảnh cũ
             Storage::delete('public/products/'.$tenanhcu); // xóa trong file
         }
-        if(count(parameter_detail::where('product_id','=',$id)->get()) > 0)
+        if(count(parameter_details::where('product_id','=',$id)->get()) > 0)
         {
-            parameter_detail::where('product_id','=',$id)->delete();
+            parameter_details::where('product_id','=',$id)->delete();
         }
         
         if (count(Comments::where('product_id','=',$id)->get()) > 0) {

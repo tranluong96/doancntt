@@ -72,7 +72,7 @@
     <!-- /.box -->
   </div>
 </div>
-@section
+@section('script')
 <script type="text/javascript">
   function delComment(id)
 {

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class paracatedetail extends Model
+class parameter_details extends Model
 {
-    protected $table = 'paracatedetail';
+    protected $table = 'parameter_detail';
     protected $primaryKey = 'id';
     public $timestamps = false;
 }

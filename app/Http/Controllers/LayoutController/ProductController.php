@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Products;
 use App\categories;
-use App\parameter_detail;
+use App\parameter_details;
 use App\parameters;
 use App\Comments;
 

@@ -11,8 +11,8 @@ use Validator;
 use App\Products;
 use App\categories;
 use App\parameters;
-use App\paracatedetail;
-use App\parameter_detail;
+use App\paracatedetails;
+use App\parameter_details;
 
 
 class CateController extends Controller
@@ -137,27 +137,27 @@ class CateController extends Controller
             if (count(categories::where('parent','=',$id)->get()) > 0) {
                 $idparent = categories::where('parent','=',$id)->get();
                 dd($idparent[0]->id);
-                    if (count(paracatedetail::where('categories_id','=',$idparent[0]->id)->get()) > 0) {
-                    paracatedetail::where('categories_id','=',$idparent[0]->id)->delete();
+                    if (count( paracatedetails::where('categories_id','=',$idparent[0]->id)->get()) > 0) {
+                     paracatedetails::where('categories_id','=',$idparent[0]->id)->delete();
                 }
 
                 if (count(Products::where('category_id','=',$idparent[0]->id)->get()) > 0) {
                     $idspparent = Products::select('id')->where('category_id','=',$idparent[0]->id)->get();
-                    if (count(parameter_detail::where('product_id','=',$idspparent[0]->id)->get()) > 0 ) {
-                       parameter_detail::where('product_id','=',$idspparent[0]->id)->delete();
+                    if (count(parameter_details::where('product_id','=',$idspparent[0]->id)->get()) > 0 ) {
+                       parameter_details::where('product_id','=',$idspparent[0]->id)->delete();
                     }
                     Products::where('category_id','=',$idparent)->delete();
                 }
                 categories::where('parent','=',$id)->delete();
             }
-            if (count(paracatedetail::where('categories_id','=',$id)->get()) > 0) {
-                paracatedetail::where('categories_id','=',$id)->delete();
+            if (count( paracatedetails::where('categories_id','=',$id)->get()) > 0) {
+                 paracatedetails::where('categories_id','=',$id)->delete();
             }
 
             if (count(Products::where('category_id','=',$id)->get()) > 0) {
                 $idsp = Products::select('id')->where('category_id','=',$id)->get();
-                if (count(parameter_detail::where('product_id','=',$idsp[0]->id)->get()) > 0 ) {
-                   parameter_detail::where('product_id','=',$idsp[0]->id)->delete();
+                if (count(parameter_details::where('product_id','=',$idsp[0]->id)->get()) > 0 ) {
+                   parameter_details::where('product_id','=',$idsp[0]->id)->delete();
                 }
                 Products::where('category_id','=',$id)->delete();
             }

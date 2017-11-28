@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class permission_user extends Model
+class permission_users extends Model
 {
     protected $table = 'permission_user';
     protected $primaryKey = 'id';

@@ -57,7 +57,7 @@
     <div class="col-sm-7">
         <div class="product-information"><!--/product-information-->
             <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="" />
-            <h2>{{ $product->name}}</h2>
+            <h2>{{ $product->name }}</h2>
             <p>Web ID: {{ $product->code}}</p>
             <span>
                 <span> $ <?php echo number_format($product->price,0,',','.'); ?> </span>
@@ -85,7 +85,7 @@
                 <li><a href=""><i class="fa fa-calendar-o"></i>{{ $product->created_at }}</a></li>
             </ul>
             <p><strong>Vài nét về sản phẩm:</strong></p>
-            <p>{{ $product->detail}}</p>
+            <p>{!! $product->detail !!}</p>
         </div>
     </div>
 </div>
@@ -189,7 +189,7 @@
                     <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
                     <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
                 </ul>
-                <p>{{ $product->detail }}</p>
+                <p>{!! $product->detail !!}</p>
                 <p><b>Write Your Review</b></p>
                 <h4>Thông số</h4>
                 <table class="table table-bordered">
