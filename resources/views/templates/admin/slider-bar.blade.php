@@ -1,10 +1,15 @@
+
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}" class="img-circle" alt="User Image">
+           @if(Session::get('PICTURE') != "")
+                <img src="{{ asset('storage/admins/'.Session::get('PICTURE')) }}"  class="user-image" alt="User Image">
+              @else
+                <img src="{{ asset('images/logo/avata.png') }}"  class="user-image" alt="User Image">
+              @endif
         </div>
         <div class="pull-left info">
           <p>
@@ -75,12 +80,10 @@
           </a>
         </li>
         <li>
-          <a href="pages/mailbox/mailbox.html">
-            <i class="fa fa-envelope"></i> <span>Mailbox</span>
+          <a href="{{ route('admin.contact.index') }}">
+            <i class="fa fa-envelope"></i> <span>Contacts</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
+              <small class="label pull-right bg-yellow" id="countcontact"></small>
             </span>
           </a>
         </li>

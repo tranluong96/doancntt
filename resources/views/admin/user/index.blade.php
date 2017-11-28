@@ -4,7 +4,7 @@
 img{
     display: inline-block !important;
     width:100px; 
-    height:50px;
+    height:80px;
 }
 </style>
 <div class="row">
@@ -19,7 +19,7 @@ img{
 </div>
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-offset-1 col-xs-10">
     <div class="box box-success">
       <div class="box-header with-border bg-success">
         <h3 class="box-title"><i class="fa fa-users"></i> Danh sách Khách Hàng</h3>
@@ -37,8 +37,7 @@ img{
               <th>Avatar</th>
               <th>Gmail</th>
               <th>Quyền truy cập</th>
-              <th colspan="2">Chức Năng</th>
-              <th><button type="submit" class="btn btn-success">Xóa</button></th>
+              <th colspan="3">Chức Năng</th>
             </tr>
             </thead>
             <tbody>
@@ -55,8 +54,13 @@ img{
                 </td>
                 <td><a href="#" title="xem chi tiết">{{ $value->fullname }}</a>
                 </td>
-                <td class="text-center"><img src="{{ asset('storage/admins/'.$hinhanh) }}" title="hình ảnh" class="thumbnail" /></td>
-                <td{{ $value->email }}</td>
+                <td class="text-center">
+                  @if($hinhanh != "")
+                    <img src="{{ asset('storage/admins/'.$hinhanh) }}" title="hình ảnh" class="thumbnail" />
+                  @else
+                    <img src="{{ asset('images/logo/avata.png') }}" title="hình ảnh" class="thumbnail" />
+                  @endif
+                </td>
                 <td>{{ $value->email }}</td>
                 <td>Administrator</td>
                 <td>
@@ -66,7 +70,7 @@ img{
                   <a href="{{ $delete }}" class="text-red"><i class="fa fa-trash-o"> Delete</i></a>
                 </td>
                 <td>
-                  <input type="checkbox" class="minimal-red">
+                  <a href="{{ route('admin.user.seeProfile',['id'=>$value->id]) }}"><i>xem chi tiết...</i></a>
                 </td>
               </tr>
               @endforeach
@@ -80,10 +84,10 @@ img{
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-offset-1 col-xs-10">
     <div class="box box-success">
       <div class="box-header with-border bg-success">
-        <h3 class="box-title"><i class="fa fa-user"></i> Danh sách User Manage</h3>
+        <h3 class="box-title"><i class="fa fa-user"></i> Danh sách Admin</h3>
         <!-- /.box-tools -->
       </div>
       <!-- /.box-header -->
@@ -99,8 +103,7 @@ img{
               <th>Avatar</th>
               <th>Gmail</th>
               <th>Quyền truy cập</th>
-              <th colspan="2">Chức Năng</th>
-              <th><button type="submit" class="btn btn-success">Xóa</button></th>
+              <th colspan="3">Chức Năng</th>
             </tr>
             </thead>
             <tbody>
@@ -117,7 +120,13 @@ img{
                 </td>
                 <td><a href="#" title="xem chi tiết">{{ $value->fullname }}</a>
                 </td>
-                <td class="text-center"><img src="{{ asset('storage/admins/'.$hinhanh) }}" title="hình ảnh" class="thumbnail" /></td>
+                <td class="text-center">
+                  @if($hinhanh != "")
+                    <img src="{{ asset('storage/admins/'.$hinhanh) }}" title="hình ảnh" class="thumbnail" />
+                  @else
+                    <img src="{{ asset('images/logo/avata.png') }}" title="hình ảnh" class="thumbnail" />
+                  @endif
+                </td>
                 <td{{ $value->email }}</td>
                 <td>{{ $value->email }}</td>
                 <td>Administrator</td>
@@ -128,7 +137,7 @@ img{
                   <a href="{{ $delete }}" class="text-red"><i class="fa fa-trash-o"> Delete</i></a>
                 </td>
                 <td>
-                  <input type="checkbox" class="minimal-red">
+                  <a href="{{ route('admin.user.seeProfile',['id'=>$value->id]) }}"><i>xem chi tiết...</i></a>
                 </td>
               </tr>
               @endforeach

@@ -23,7 +23,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -38,7 +38,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -53,7 +53,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -78,7 +78,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
@@ -158,5 +158,6 @@
 		<script src="{{ asset('js/price-range.js') }}"></script>
     <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    @yield('script')
 </body>
 </html>

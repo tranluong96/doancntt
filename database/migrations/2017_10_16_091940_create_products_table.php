@@ -17,14 +17,18 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('name');
+            $table->string('detail');
             $table->string('picture');
-            $table->decimal('price',5,2);
-            $table->decimal('quantity',5,2);
+            $table->integer('price')->unsigned()->nullable();
+            $table->integer('price_old')->unsigned()->nullable();
+            $table->integer('discount');
+            $table->integer('quantity')->unsigned()->nullable();
             $table->integer('active')->unsigned()->nullable();
             $table->integer('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('view')->unsigned()->nullable();
             $table->timestamps();
         });
     }

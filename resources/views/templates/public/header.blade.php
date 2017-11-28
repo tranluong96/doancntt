@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title')</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
@@ -16,7 +17,7 @@
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    <![endif]-->
     <link rel="shortcut icon" href="{{ asset('public') }}/images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ $publicurl }}/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ $publicurl }}/images/ico/apple-touch-icon-114-precomposed.png">
@@ -25,6 +26,10 @@
 </head><!--/head-->
 
 <body>
+	<?php
+		use App\categories;
+		$categories = categories::where('id','>',1)->get();
+	?>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -51,7 +56,7 @@
 				</div>
 			</div>
 		</div><!--/header_top-->
-		
+
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
@@ -63,16 +68,43 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="{{ route('public.shoppingcard') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="{{ route('public.login') }}"><i class="fa fa-lock"></i> Login</a></li>
-								<li><a href="{{ route('public.login') }}"><i class="fa fa-unlock"></i> Logout</a></li>
+								@if (Auth::check())
+								<li>
+									<!-- <a href="{{ url('carts/manage')}}"><i class="fa fa-check-square-o" aria-hidden="true"></i> Quản lý đơn hàng</a> -->
+								</li>
+								<li>
+									<a href="#" ></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i>
+                  	{{ Auth::user()->name }} <span class="caret"></span>
+                	</a>
+                	<ul class="dropdown-menu" style="min-width: 110px;">
+                		<li><a href="{{ url('/user')}}">Xem Profile</li></a>
+                		<li><a href="{{ url('change-password')}}">Đổi mật khẩu</a></li>
+                		<li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                    </ul>
+								</li>
+
+								@else
+								<li><a href="{{ url('login') }}"><i class="fa fa-user" aria-hidden="true"></i> Đăng Nhập</a></li>
+								<li><a href="{{ url('register') }}"><i class="fa fa-lock"></i> Đăng Ký</a></li>
+								@endif
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div><!--/header-middle-->
-	
+
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
@@ -88,8 +120,13 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{{ route('public.index') }}" class="active">Home</a></li>
-								<li><a href="{{ route('public.products') }}">Products</a></li> 
-								<li class="dropdown"><a href="">News<i class="fa fa-angle-down"></i></a></li>
+
+								@foreach( $categories as $key => $value)
+									@if( $value->parent == 0 )
+									<li><a href="{{ route('public.Product_Cate',['slug'=>str_slug($value->name),'id'=>$value->id]) }}">{{ $value->name }}</a></li>
+									@endif
+								@endforeach
+								<li><a href="{{ route('public.products') }}">Products News </a></li>
 								<li><a href="{{ route('public.contact') }}">Contact</a></li>
 							</ul>
 						</div>
