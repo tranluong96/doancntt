@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Validator;
-use App\Products;
-use App\categories;
-use App\parameters;
+use App\Product;
+use App\category;
+use App\parameter;
 use App\paracatedetail;
 use App\parameter_detail;
 use App\transInput_order;
@@ -24,7 +24,7 @@ class OrdermanageController extends Controller
      */
     public function NhapDH()
     {
-        $categories = categories::where('parent','=',0)->get();
+        $categories = Category::where('parent','=',0)->get();
         return view('admin.order.nhapdonhang',['categories'=>$categories]);
     }
     /**
@@ -35,7 +35,7 @@ class OrdermanageController extends Controller
 
     public function AddOrderInput($slug,$id)
     {
-        $arProduct = Products::find($id);
+        $arProduct = Product::find($id);
         // dd($arProduct);
         return view('admin.order.updatedonhang',['arProduct'=>$arProduct]);
     }
@@ -49,7 +49,7 @@ class OrdermanageController extends Controller
         $discount= trim($request->discount);
         $detail= trim($request->detail);
 
-        $arhash = Products::where('code','=',$code)->get();
+        $arhash = Product::where('code','=',$code)->get();
         $priceN = $arhash[0]->price;
         $price_oldN = $arhash[0]->price_old;
         $quantityN = $arhash[0]->quantity;
@@ -70,10 +70,10 @@ class OrdermanageController extends Controller
         if ($detail != "") {
             $detailN = $detail;
         }
-        
-        Products::where('code','=',$code)->update(['price_old'=>$price_oldN, 'price'=>$priceN,'quantity'=>$quantityN,'discount'=>$discountN, 'detail'=> $detailN]);
 
-        $arNewProduct = Products::where('code','=',$code)->get();
+        Product::where('code','=',$code)->update(['price_old'=>$price_oldN, 'price'=>$priceN,'quantity'=>$quantityN,'discount'=>$discountN, 'detail'=> $detailN]);
+
+        $arNewProduct = Product::where('code','=',$code)->get();
 
         $total = $arNewProduct[0]->price_old*$quantityN;
         // dd($total);
@@ -136,8 +136,8 @@ class OrdermanageController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        $arhash = Products::where('code','=',$code)->get();
-        
+        $arhash = Product::where('code','=',$code)->get();
+
         if (count($arhash) > 0 ) {
             $request->session()->flash('msg-e', 'Sản phẩm tồn tại !');
             return redirect()->route('admin.OrderIn');
@@ -164,8 +164,8 @@ class OrdermanageController extends Controller
                 'created_at' => $date,
                 );
             // dd($arProduct);
-            if(Products::insert($arProduct)){
-                $arNewProduct = Products::where('code','=',$code)->get();
+            if(Product::insert($arProduct)){
+                $arNewProduct = Product::where('code','=',$code)->get();
                 // dd($arNewProduct[0]->id);
                 $quantity = $arNewProduct[0]->quantity;
                 $price = $arNewProduct[0]->price_old;

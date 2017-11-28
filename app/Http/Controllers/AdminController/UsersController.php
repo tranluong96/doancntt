@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use App\User;
 use App\permission_user;
-use App\Products;
+use App\Product;
 
 class UsersController extends Controller
 {
@@ -31,7 +31,7 @@ class UsersController extends Controller
     public function seeProfile($id)
     {
         $arUser = User::find($id);
-        $count  = count(Products::where('user_id','=',$id)->get());
+        $count  = count(Product::where('user_id','=',$id)->get());
         return view('admin.user.User_detail',['aruser'=>$arUser,'count'=>$count]);
     }
 
@@ -125,7 +125,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -176,7 +176,7 @@ class UsersController extends Controller
         if ($validator->fails()) {
             return redirect()->route('admin.user.edit',['id'=>$id, 'slug'=>$slug])->withErrors($validator)->withInput();
         }
-        
+
         if ($request->password != "") {
             $objUser->password = bcrypt($request->password);
         }
@@ -217,7 +217,7 @@ class UsersController extends Controller
                             Storage::delete('public/admins/'.$tenanhcu); // xóa trong file
                         }
                         $objUser->picture = "";
-                        
+
                     }
                 }
                 $objUser->update();
@@ -242,7 +242,7 @@ class UsersController extends Controller
     public function destroy(Request $request, $id)
     {
         $objUser = User::find($id);
-        
+
         $tenanhcu = $objUser['picture']; //data
         $pathOldPic = storage_path('public/admins/'.$tenanhcu);
         //is_file kiểm tra khác rỗng
@@ -255,7 +255,7 @@ class UsersController extends Controller
         if ($objUser != null) {
             $objUser->delete();
         }
-        
+
         $request->session()->flash('msg-s', 'Delete thành công');
         return redirect()->route('admin.users');
     }

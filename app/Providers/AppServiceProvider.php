@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Providers\share;
 use Illuminate\Support\Facades\Schema;
-use App\categories;
+use App\Category;
 
 class AppServiceProvider extends ServiceProvider
 {

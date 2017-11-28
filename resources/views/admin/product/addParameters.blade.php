@@ -1,19 +1,19 @@
 @extends('templates.admin.template')
 @section('content')
-<?php 
+<?php
   use App\Products;
   use App\categories;
   use App\paracatedetail;
   use Illuminate\Support\Facades\DB;
   $idcate = Session::get('IDCate');
   $parameters = DB::table('paracatedetail')->join('parameters', 'paracatedetail.parameters_id','=','parameters.id')->join('categories','paracatedetail.categories_id','=','categories.id')->select('parameters.*')->where('paracatedetail.categories_id','=',$idcate)->get();
-  $categories = categories::all();
+  $categories = Category::all();
   $arProduct = Products::where('id','=',$id)->get();
-  
+
   // dd($parameters);
 ?>
 <div class="alert " id="alert-ajax">
-    
+
 </div>
 <div class="row">
   <div class="col-xs-8">
@@ -46,7 +46,7 @@
           </tr>
         </tbody>
         <tfoot>
-          
+
         </tfoot>
       </table>
     </div>
@@ -163,7 +163,7 @@
         var id_product = $('#id_product').val();
         var namePara = $('#namePara option:selected').html();
         var nameContent = $('#valuePara').val();
-        
+
         $.ajaxSetup({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

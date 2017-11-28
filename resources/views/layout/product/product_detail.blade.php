@@ -2,7 +2,7 @@
 @section('title')
     {{ $product->name }}
 @stop
-@section('content')	
+@section('content')
 <div class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -23,7 +23,7 @@
             <h3>ZOOM</h3>
         </div>
         <div id="similar-product" class="carousel slide" data-ride="carousel">
-            
+
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
@@ -41,7 +41,7 @@
                         <a href=""><img src="{{ asset('images/product-details/similar2.jpg') }}" alt=""></a>
                         <a href=""><img src="{{ asset('images/product-details/similar3.jpg') }}" alt=""></a>
                     </div>
-                    
+
                 </div>
 
                 <!-- Controls -->
@@ -77,7 +77,7 @@
 </div><!--/product-details-->
 <div class="row">
     <div class="col-xs-6">
-        
+
     </div>
     <div class="" id="" >
         <div class="col-sm-12">
@@ -153,7 +153,7 @@
                 <div class="form-group">
                     <label for="">Comment product</label>
                     <div class="col-xs-12" id="commentList">
-                        
+
                     </div>
                 </div>
             </div>
@@ -198,7 +198,7 @@
                             Tên Thông số
                         </th>
                         <th>
-                            Giá Trị 
+                            Giá Trị
                         </th>
                     </tr>
                     <tr>
@@ -218,7 +218,7 @@
                     <div class="form-group">
                         <label for="">Comment product</label>
                         <div class="col-xs-12" id="commentList">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -247,16 +247,16 @@
             </div>
             </div>
         </div>
-        
+
     </div>
 </div><!--/category-tab-->
 
 <div class="recommended_items"><!--recommended_items-->
     <h2 class="title text-center">recommended items</h2>
-    
+
     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="item active">	
+            <div class="item active">
                 <div class="col-sm-4">
                     <div class="product-image-wrapper">
                         <div class="single-products">
@@ -294,7 +294,7 @@
                     </div>
                 </div>
             </div>
-            <div class="item">	
+            <div class="item">
                 <div class="col-sm-4">
                     <div class="product-image-wrapper">
                         <div class="single-products">
@@ -338,7 +338,7 @@
             </a>
             <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
             <i class="fa fa-angle-right"></i>
-            </a>			
+            </a>
     </div>
 </div><!--/recommended_items-->
 @section('script')

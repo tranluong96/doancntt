@@ -27,8 +27,8 @@
 
 <body>
 	<?php
-		use App\categories;
-		$categories = categories::where('id','>',1)->get();
+		use App\Category;
+		$categories = Category::where('id','>',1)->get();
 	?>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->

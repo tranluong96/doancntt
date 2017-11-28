@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Products extends Model
+class Product extends Model
 {
     protected $table = 'products';
     protected $primaryKey = 'id';
@@ -12,5 +12,9 @@ class Products extends Model
 
     public function category() {
       return $this->belongsTo('App\Category');
+    }
+
+    public function parameter_details(){
+      return $this->hasMany('App\parameter_detail');
     }
 }
