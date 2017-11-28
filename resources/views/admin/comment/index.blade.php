@@ -72,47 +72,5 @@
     <!-- /.box -->
   </div>
 </div>
-@section('script')
 
-  <script type="text/javascript">
-    function delComment(id)
-    {
-      $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-      });
-      $.ajax({
-          url: "{{route('admin.ajax.delete')}}",
-          type: 'post',
-          data: {aid: id},
-          success: function(data){
-            $('#comment-'+data).fadeOut(1000);
-          },
-          error: function (){
-              alert('Có lỗi xảy ra');
-          }
-      });
-    }
-
-
-    $(function(){
-
-      $('#check_all').on('change', function() {
-        var checkall = document.getElementById("check_all");
-        var check    = document.getElementsByClassName("check");
-        if (checkall.checked) {
-            for (var i = 0; i < check.length; i++) {
-                check[i].checked = true;
-            }
-        }else{
-            for (var i = 0; i < check.length; i++) {
-                check[i].checked = false;
-            }
-        }
-      });
-    })
-  </script>
-
-@stop
 @stop

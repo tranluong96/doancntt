@@ -16,6 +16,7 @@
     <div class="box box-primary">
       <div class="box-header">
         <h3 class="box-title">View Products</h3>
+        <a href="{{ route('admin.cate.add.product') }}" class="btn btn-success pull-right"> Add new product</a>
       </div>
       <!-- /.box-header -->
       <div class="box-body">

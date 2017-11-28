@@ -77,68 +77,7 @@
 </div>
 @section('script')
     <script type="text/javascript" >
-        function addPara(){
-            aname = $('#name').val();
-            apara = $('#parameters').val();
-            $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{route('admin.add.parameters')}}",
-                type: 'post',
-                data: {name: aname, para: apara},
-                success: function(data){
-                   $('#alertajax').html(data);
-                },
-                error: function (){
-                    alert('Có lỗi xảy ra');
-                }
-            });
-        }
-
-        function destroy(id){
-            $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{route('admin.destroy.parameters')}}",
-                type: 'post',
-                data: {aid: id},
-                success: function(data){
-                    $('#alertajax').html(data);
-                },
-                error: function (){
-                    alert('Có lỗi xảy ra');
-                }
-            });
-        }
-
-        $( document ).ready(function() {
-            function getParameters(){
-                setTimeout(function(){
-                    var a = 1;
-                    $.ajaxSetup({
-                        headers: {
-                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                      });
-                    $.ajax({
-                        url: "{{route('admin.ajaxParameters')}}",
-                        type: 'post',
-                        data: {data:a},
-                        success: function(data){
-                           $('#getparameters').html(data);
-                        },
-                        complete: getParameters
-                    });
-                },200);
-            };
-            getParameters();
-        });
+        
         
     </script>
 @stop
