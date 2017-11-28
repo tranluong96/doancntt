@@ -143,8 +143,8 @@ class ParameterController extends Controller
             paracatedetails::where('parameters_id','=',$id)->delete();
         }
 
-        if (count(parameter_details::where('parameter_id','=',$id)->get()) > 0) {
-            parameter_details::where('parameter_id','=',$id)->delete();
+        if (count(parameter_detail::where('parameter_id','=',$id)->get()) > 0) {
+            parameter_detail::where('parameter_id','=',$id)->delete();
         }
 
         $des = DB::table('paracatedetail')->where('parameters_id','=',$id)->delete();
