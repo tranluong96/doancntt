@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class parameter_details extends Model
+class parameter_detail extends Model
 {
     protected $table = 'parameter_detail';
     protected $primaryKey = 'id';
