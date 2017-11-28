@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\parameters;
-use App\categories;
-use App\paracatedetails;
-use App\parameter_details;
+use App\Category;
+use App\paracatedetail;
+use App\parameter_detail;
 
 class ParameterController extends Controller
 {
@@ -73,8 +73,8 @@ class ParameterController extends Controller
                 $arpa = parameters::where('name','=',$name)->get();
                 $id_para = $arpa[0]->id;
                 $ar = array(
-                    'parameters_id' => $id_para,
-                    'categories_id' => $cate
+                    'parameter_id' => $id_para,
+                    'categorie_id' => $cate
                 );
                 paracatedetails::insert($ar);
                 return '<p class="alert alert-success alert-dismissable">Thêm thành công !</p>';

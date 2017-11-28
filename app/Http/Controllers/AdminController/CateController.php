@@ -8,11 +8,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Validator;
-use App\Products;
-use App\categories;
-use App\parameters;
-use App\paracatedetails;
-use App\parameter_details;
+use App\Product;
+use App\Category;
+use App\parameter;
+use App\paracatedetail;
+use App\parameter_detail;
 
 
 class CateController extends Controller
@@ -24,8 +24,8 @@ class CateController extends Controller
      */
     public function index()
     {
-        $arCate = categories::all();
-        $categories = categories::orderby('id','DESC')->paginate(10);
+        $arCate = Category::all();
+        $categories = Category::orderby('id','DESC')->paginate(10);
         return view('admin.category.index', ['arcate'=>$arCate, 'categories'=>$categories]);
     }
 
@@ -50,7 +50,7 @@ class CateController extends Controller
         $name    = $request->name;
         $parent  = $request->parent;
 
-        $name_olds = categories::select('name')->where('name','=',$name)->get();
+        $name_olds = Category::select('name')->where('name','=',$name)->get();
         $name_old ="";
         foreach ($name_olds as $key => $value) {
             $name_old = $value->name;
@@ -65,7 +65,7 @@ class CateController extends Controller
                 'parent' => $parent
             );
         }
-        if (categories::insert($arCate)) {
+        if (Category::insert($arCate)) {
             $request->session()->flash('msg-s','Thêm thành công');
             return redirect()->route('admin.category');
         }else{
@@ -93,8 +93,8 @@ class CateController extends Controller
      */
     public function edit($slug,$id)
     {
-        $arcate = categories::find($id);
-        $category = categories::all();
+        $arcate = Category::find($id);
+        $category = Category::all();
         // dd($arcate);
         return view('admin.category.edit', ['arcate'=>$arcate,'category'=>$category]);
     }
@@ -109,7 +109,7 @@ class CateController extends Controller
     public function update(Request $request,$slug,$id)
     {
         $idcat = $request->id;
-        $arcate = categories::find($id);
+        $arcate = Category::find($id);
         if ($idcat == $id) {
             $arcate->name   = $request->name;
             $arcate->parent   = $request->parent;
@@ -119,7 +119,7 @@ class CateController extends Controller
         }else{
             $request->session()->flash('msg-e','Update thất bại');
             return redirect()->route('admin.category');
-        } 
+        }
     }
 
     /**
@@ -131,37 +131,37 @@ class CateController extends Controller
 
     public function destroy(Request $request,$id)
     {
-        
-        $arcate = categories::find($id);
+
+        $arcate = Category::find($id);
         if ($id == $arcate->id) {
-            if (count(categories::where('parent','=',$id)->get()) > 0) {
-                $idparent = categories::where('parent','=',$id)->get();
+            if (count(Category::where('parent','=',$id)->get()) > 0) {
+                $idparent = Category::where('parent','=',$id)->get();
                 dd($idparent[0]->id);
                     if (count( paracatedetails::where('categories_id','=',$idparent[0]->id)->get()) > 0) {
                      paracatedetails::where('categories_id','=',$idparent[0]->id)->delete();
                 }
 
-                if (count(Products::where('category_id','=',$idparent[0]->id)->get()) > 0) {
-                    $idspparent = Products::select('id')->where('category_id','=',$idparent[0]->id)->get();
-                    if (count(parameter_details::where('product_id','=',$idspparent[0]->id)->get()) > 0 ) {
-                       parameter_details::where('product_id','=',$idspparent[0]->id)->delete();
+                if (count(Product::where('category_id','=',$idparent[0]->id)->get()) > 0) {
+                    $idspparent = Product::select('id')->where('category_id','=',$idparent[0]->id)->get();
+                    if (count(parameter_detail::where('product_id','=',$idspparent[0]->id)->get()) > 0 ) {
+                       parameter_detail::where('product_id','=',$idspparent[0]->id)->delete();
                     }
-                    Products::where('category_id','=',$idparent)->delete();
+                    Product::where('category_id','=',$idparent)->delete();
                 }
-                categories::where('parent','=',$id)->delete();
+                Category::where('parent','=',$id)->delete();
             }
             if (count( paracatedetails::where('categories_id','=',$id)->get()) > 0) {
                  paracatedetails::where('categories_id','=',$id)->delete();
             }
 
-            if (count(Products::where('category_id','=',$id)->get()) > 0) {
-                $idsp = Products::select('id')->where('category_id','=',$id)->get();
-                if (count(parameter_details::where('product_id','=',$idsp[0]->id)->get()) > 0 ) {
-                   parameter_details::where('product_id','=',$idsp[0]->id)->delete();
+            if (count(Product::where('category_id','=',$id)->get()) > 0) {
+                $idsp = Product::select('id')->where('category_id','=',$id)->get();
+                if (count(parameter_detail::where('product_id','=',$idsp[0]->id)->get()) > 0 ) {
+                   parameter_detail::where('product_id','=',$idsp[0]->id)->delete();
                 }
-                Products::where('category_id','=',$id)->delete();
+                Product::where('category_id','=',$id)->delete();
             }
-            
+
             $arcate->delete();
             $request->session()->flash('msg-s', 'Delete thành công');
             return redirect()->route('admin.category');
@@ -169,6 +169,6 @@ class CateController extends Controller
             $request->session()->flash('msg-e','Delete thất bại');
             return redirect()->route('admin.category');
         }
-        
+
     }
 }

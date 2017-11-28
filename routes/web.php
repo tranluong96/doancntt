@@ -67,8 +67,8 @@ Route::group(['namespace' => 'LayoutController'], function () {
             'as'    => 'public.login'
         ]);
     });
-    
-    
+
+
 });
 
 
@@ -171,7 +171,7 @@ Route::group(['namespace' => 'AdminController','prefix' => 'adminpc', 'middlewar
             'uses'  => 'CateController@edit',
             'as'    => 'admin.cateEdit'
         ]);
-        
+
         Route::post('update-{slug}-{id}',[
             'uses'  => 'CateController@update',
             'as'    => 'admin.updateCate'
@@ -323,7 +323,7 @@ Route::group(['namespace' => 'AdminController','prefix' => 'adminpc', 'middlewar
             'uses'  => 'PermissionController@setPermission',
             'as'    => 'admin.permission.set'
         ]);
-        
+
         Route::get('/permission-destroy-{id}',[
             'uses'  => 'PermissionController@destroy',
             'as'    => 'admin.permission.destroy'

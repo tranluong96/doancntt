@@ -5,8 +5,8 @@ namespace App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Comments;
-use App\Products;
+use App\Comment;
+use App\Product;
 
 class CommentController extends Controller
 {
@@ -98,7 +98,7 @@ class CommentController extends Controller
             return redirect()->route('admin.comment');
         }
         // dd($listComment);
-        for ($i=0; $i < count($listComment); $i++) { 
+        for ($i=0; $i < count($listComment); $i++) {
             DB::table('comments')->where('id', '=', $listComment[$i])->delete();
         }
         $request->session()->flash('msg-s','Xóa thành công');

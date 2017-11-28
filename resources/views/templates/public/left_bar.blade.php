@@ -1,6 +1,6 @@
-<?php 
-	use App\categories;
-	$categories = categories::where('id','>',1)->get();
+<?php
+	use App\Category;
+	$categories = Category::where('id','>',1)->get();
 ?>
 
 <h2>Category</h2>
@@ -45,7 +45,7 @@
 	</div><!--/shipping-->
 
 	@section('script')
-		
+
 		<script type="text/javascript">
 			function price_range()
 			{
