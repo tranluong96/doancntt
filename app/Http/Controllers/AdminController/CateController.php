@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use App\categories;
+use App\parameters;
+use App\Products;
+use App\paracatedetail;
+use App\parameter_detail;
 
 
 class CateController extends Controller
@@ -126,8 +130,37 @@ class CateController extends Controller
     public function destroy(Request $request,$id)
     {
         $arcate = categories::find($id);
-        // dd($arcate);
         if ($id == $arcate->id) {
+
+            if (count(categories::where('parent','=',$id)->get()) > 0) {
+                $idparent = categories::where('parent','=',$id)->get();
+                dd($idparent[0]->id);
+                    if (count(paracatedetail::where('categories_id','=',$idparent[0]->id)->get()) > 0) {
+                    paracatedetail::where('categories_id','=',$idparent[0]->id)->delete();
+                }
+
+                if (count(Products::where('category_id','=',$idparent[0]->id)->get()) > 0) {
+                    $idspparent = Products::select('id')->where('category_id','=',$idparent[0]->id)->get();
+                    if (count(parameter_detail::where('product_id','=',$idspparent[0]->id)->get()) > 0 ) {
+                       parameter_detail::where('product_id','=',$idspparent[0]->id)->delete();
+                    }
+                    Products::where('category_id','=',$idparent)->delete();
+                }
+                categories::where('parent','=',$id)->delete();
+            }
+            // exit();
+            if (count(paracatedetail::where('categories_id','=',$id)->get()) > 0) {
+                paracatedetail::where('categories_id','=',$id)->delete();
+            }
+
+            if (count(Products::where('category_id','=',$id)->get()) > 0) {
+                $idsp = Products::select('id')->where('category_id','=',$id)->get();
+                if (count(parameter_detail::where('product_id','=',$idsp[0]->id)->get()) > 0 ) {
+                   parameter_detail::where('product_id','=',$idsp[0]->id)->delete();
+                }
+                Products::where('category_id','=',$id)->delete();
+            }
+            
             $arcate->delete();
             $request->session()->flash('msg-s', 'Delete thành công');
             return redirect()->route('admin.category');

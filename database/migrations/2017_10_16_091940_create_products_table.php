@@ -21,7 +21,6 @@ class CreateProductsTable extends Migration
             $table->string('picture');
             $table->integer('price')->unsigned()->nullable();
             $table->integer('price_old')->unsigned()->nullable();
-            $table->integer('discount');
             $table->integer('quantity')->unsigned()->nullable();
             $table->integer('active')->unsigned()->nullable();
             $table->integer('category_id')->unsigned()->nullable();

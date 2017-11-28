@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Validator;
 use App\Products;
 use App\categories;
+use App\Comments;
 use App\parameters;
 use App\paracatedetail;
 use App\parameter_detail;
@@ -119,7 +120,6 @@ class ProductController extends Controller
                 'picture'  => $endPic,
                 'price' => 0,
                 'price_old' =>0,
-                'discount' => 0,
                 'quantity'  => 0,
                 'active' => $request->display,
                 'category_id' => $id,
@@ -311,8 +311,14 @@ class ProductController extends Controller
             //xóa ảnh cũ
             Storage::delete('public/products/'.$tenanhcu); // xóa trong file
         }
-        DB::table('parameter_detail')->where('product_id','=',$id)->delete();
-
+        if(count(parameter_detail::where('product_id','=',$id)->get()) > 0)
+        {
+            parameter_detail::where('product_id','=',$id)->delete();
+        }
+        
+        if (count(Comments::where('product_id','=',$id)->get()) > 0) {
+            Comments::where('product_id','=',$id)->delete();
+        }
         $arProduct->delete();
 
         $request->session()->flash('msg-s', 'Xóa thành công !');
