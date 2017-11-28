@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class categories extends Model
+class Brand extends Model
 {
-    protected $table = 'categories';
-    protected $primaryKey = 'id';
+    protected $fillable = ['name'];
     public $timestamps = false;
 
     public function products(){
