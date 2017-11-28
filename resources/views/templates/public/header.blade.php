@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title')</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
@@ -25,6 +26,10 @@
 </head><!--/head-->
 
 <body>
+	<?php  
+		use App\categories;
+		$categories = categories::where('id','>',1)->get();
+	?>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -88,8 +93,13 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{{ route('public.index') }}" class="active">Home</a></li>
-								<li><a href="{{ route('public.products') }}">Products</a></li> 
-								<li class="dropdown"><a href="">News<i class="fa fa-angle-down"></i></a></li>
+								
+								@foreach( $categories as $key => $value)
+									@if( $value->parent == 0 )
+									<li><a href="{{ route('public.Product_Cate',['slug'=>str_slug($value->name),'id'=>$value->id]) }}">{{ $value->name }}</a></li>
+									@endif
+								@endforeach
+								<li><a href="{{ route('public.products') }}">Products News </a></li>
 								<li><a href="{{ route('public.contact') }}">Contact</a></li>
 							</ul>
 						</div>

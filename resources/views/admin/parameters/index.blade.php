@@ -1,6 +1,17 @@
 @extends('templates.admin.template')
 @section('content')
 <div class="row">
+    <div class="col-md-5">
+        <div id="alertajax"></div>
+        @if(Session::has('msg-s'))
+            <div class="alert alert-success alert-dismissable">{{ Session::get('msg-s') }}</div>
+        @endif
+        @if(Session::has('msg-e'))
+            <div class="alert alert-danger alert-dismissable">{{ Session::get('msg-e') }}</div>
+        @endif
+      </div>
+</div>
+<div class="row">
     <div class="col-md-4">
         <div class="box box-danger collapsed-box">
             <div class="box-header with-border">
@@ -13,13 +24,21 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <form action="" method="get" accept-charset="utf-8">
+                <form action="" method="">
                     <div class="form-group">
                         <label for="">Parameter Name</label>
-                        <input type="text" name="" value="" placeholder="nhập..." class="form-control">
+                        <input type="text" name="name" id="name" value="" placeholder="nhập..." class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Chọn danh mục</label> <br>
+                        <select id="parameters" name="category" class="form-control select2" style="width: 250px;">
+                            @foreach( $categories as $key => $value )
+                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div>
-                        <input type="button" name="" value="Thêm Mới" class="btn btn-success">
+                        <input type="button" onclick="addPara()" value="Thêm Mới" class="btn btn-success">
                     </div>
                 </form>
             </div>
@@ -27,6 +46,7 @@
         </div>
         <!-- /.box -->
     </div>
+
     <div class="col-md-8">
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -35,41 +55,91 @@
         <!-- /.box-header -->
             <div class="box-body">
                 <table class="table table-bordered text-center">
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Name</th>
-                        <th colspan="2">chức năng</th>
-                        <th>
-                            <input type="button" name="" value="Xóa" class="btn btn-danger">
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>1.</td>
-                        <td><input type="text" name="" value="Ram" disabled class="form-control"></td>
-                        <td>
-                            <a href="{{ route('admin.editparameter') }}" class="text-success"><i class="fa fa-refresh"> Edit</i></a>
-                        </td>
-                        <td>
-                            <a href="#" class="text-red"><i class="fa fa-trash-o"> Delete</i></a>
-                        </td>
-                        <td>
-                            <input type="checkbox" class="minimal-red">
-                        </td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Name</th>
+                            <th colspan="2">chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody id=getparameters>
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr></tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
-        <!-- /.box-body -->
-        <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>
-        </div>
+       
     </div>
 </div>
 </div>
+@section('script')
+    <script type="text/javascript" >
+        function addPara(){
+            aname = $('#name').val();
+            apara = $('#parameters').val();
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('admin.add.parameters')}}",
+                type: 'post',
+                data: {name: aname, para: apara},
+                success: function(data){
+                   $('#alertajax').html(data);
+                },
+                error: function (){
+                    alert('Có lỗi xảy ra');
+                }
+            });
+        }
+
+        function destroy(id){
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('admin.destroy.parameters')}}",
+                type: 'post',
+                data: {aid: id},
+                success: function(data){
+                    $('#alertajax').html(data);
+                },
+                error: function (){
+                    alert('Có lỗi xảy ra');
+                }
+            });
+        }
+
+        $( document ).ready(function() {
+            function getParameters(){
+                setTimeout(function(){
+                    var a = 1;
+                    $.ajaxSetup({
+                        headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                      });
+                    $.ajax({
+                        url: "{{route('admin.ajaxParameters')}}",
+                        type: 'post',
+                        data: {data:a},
+                        success: function(data){
+                           $('#getparameters').html(data);
+                        },
+                        complete: getParameters
+                    });
+                },200);
+            };
+            getParameters();
+        });
+        
+    </script>
+@stop
 @stop

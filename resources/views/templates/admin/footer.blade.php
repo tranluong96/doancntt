@@ -1,3 +1,33 @@
+<div class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">View Messages</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group col-md-6">
+            <label for="">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Name" id="name"  readonly="">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="">Gmail</label>
+            <input type="text" name="name" class="form-control" placeholder="Name" id="email" readonly="">
+        </div>
+        <div class="form-group">
+          <label for="">Messages</label><br />
+          <textarea name="" id="content" class="form-control" readonly="">ukm àasfasfsaf</textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0)" onclick="$('.modal').css({display:'none', transition:'0.3 all'});"><button type="button" onclick="" class="btn btn-secondary" data-dismiss="modal">Close</button></a>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.3.8
@@ -107,5 +137,97 @@
     });
   });
 </script>
+<script type="text/javascript">
+  function modelView(a)
+    {
+      $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{route('admin.ajax.Viewcontact')}}",
+            type: 'post',
+            cache: false,
+            data: {aid: a },
+            success: function(data){
+              $('#name').val(data.name);
+              $('#email').val(data.email);
+              $('#content').val(data.content);
+              $('.modal').css({display:'block', transition:'0.3 all'});
+            },
+            error: function (){
+                alert('Có lỗi xảy ra');
+            }
+        });
+      
+    }
+  $(function(){
+    function getContact(){
+          setTimeout(function(){
+              var a = 1;
+              $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+              $.ajax({
+                  url: "{{route('admin.ajax.getcontact')}}",
+                  type: 'post',
+                  data: {data:a},
+                  success: function(data){
+                     $('#countcontact').html(data);
+                  },
+                  complete: getContact
+              });
+          },200);
+      };
+      getContact();
+      
+    function countallcontact(){
+        setTimeout(function(){
+            var a = 1;
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+            $.ajax({
+                url: "{{route('admin.ajax.allcontact')}}",
+                type: 'post',
+                data: {data:a},
+                success: function(data){
+                   $('#countallcontact').html(data);
+                   $('#allContact').html(data);
+                },
+                complete: countallcontact
+            });
+        },200);
+    };
+    countallcontact();
+
+    function getarcontact(){
+        setTimeout(function(){
+            var a = 1;
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+            $.ajax({
+                url: "{{route('admin.ajax.getallcontact')}}",
+                type: 'post',
+                data: {data:a},
+                success: function(data){
+                   $('#get_arcontact').html(data);
+                },
+                complete: getarcontact
+            });
+        },500);
+    };
+    getarcontact();
+  });
+</script>
+@yield('script')
 </body>
 </html>

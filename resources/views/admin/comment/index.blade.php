@@ -1,5 +1,15 @@
 @extends('templates.admin.template')
 @section('content')
+<div class="row">
+  <div class="col-md-5">
+      @if(Session::has('msg-s'))
+          <div class="alert alert-success alert-dismissable">{{ Session::get('msg-s') }}</div>
+      @endif
+      @if(Session::has('msg-e'))
+          <div class="alert alert-danger alert-dismissable">{{ Session::get('msg-e') }}</div>
+      @endif
+    </div>
+</div>
 <div class="row text-center">
   <div class="col-xs-12">
     <div class="box box-success">
@@ -17,49 +27,92 @@
         }
       </style>
       <div class="box-body">
-        <form action="">
+        <form action="{{ route('admin.destroy.comment') }}" method="post">
+          {{ csrf_field() }}
           <table id="" class="table table-bordered table-hover text-center">
             <thead>
             <tr class="">
               <th>.#</th>
-              <th>Name</th>
               <th>Avatar</th>
               <th>Sản Phẩm</th>
               <th>Content</th>
-              <th>parent</th>
               <th colspan="1">Chức Năng</th>
-              <th><button type="submit" class="btn btn-success">Xóa</button></th>
+              <th>
+                <button onclick="var tb=confirm('Bạn có muốn xóa không ?');if(tb==true){return true;}else{return false;};" class="btn btn-danger" type="submit" name="delete">Xóa</button><br />
+                <input type="checkbox" class="" id="check_all" />
+              </th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>1</td>
-              <td><a href="#" title="xem chi tiết">Đỗ quang lai</a>
-              </td>
-              <td class="text-center"><img src="{{ asset('images/logo/dt.png') }}" title="hình ảnh" class="thumbnail" /></td>
-              <td>Iphone 5 plus</td>
-              <td>Điện thoại này còn không ad ?</td>
-              <td>0</td>
-              <td>
-                <a href="#" class="text-red"><i class="fa fa-trash-o"> Delete</i></a>
-              </td>
-              <td>
-                <input type="checkbox" class="minimal-red">
-              </td>
-            </tr>
+            @foreach($comments as $key => $value)
+              <tr id="comment-{{ $value->id }}">
+                <td>{{ $key }}</td>
+                <td class="text-center">
+                  <img src="{{ asset('storage/products/'.$value->picture) }}" title="hình ảnh" class="thumbnail" />
+                </td>
+                <td>{{ $value->name }}</td>
+                <td>{{ $value->contents}}</td>
+                <td>
+                  <a href="javascript:void(0)" class="text-red" onclick="delComment({{ $value->id}})"><i class="fa fa-trash-o"> Delete</i></a>
+                </td>
+                <td>
+                  <input type="checkbox" value="{{$value->id}}" name="checkall[]" class="check">
+                </td>
+              </tr>
+            @endforeach
             </tbody>
-            <thead>
-            <tr class="">
-              <th colspan="7" rowspan="" headers="" scope=""></th>
-              <th colspan="" class="text-right"><button type="submit" class="btn btn-success">Xóa</button></th>
-            </tr>
-            </thead>
           </table>
         </form>
+      </div>
+      <div class="box-footer">
+        {{ $comments->links() }}
       </div>
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
   </div>
 </div>
+@section('script')
+
+  <script type="text/javascript">
+    function delComment(id)
+    {
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $.ajax({
+          url: "{{route('admin.ajax.delete')}}",
+          type: 'post',
+          data: {aid: id},
+          success: function(data){
+            $('#comment-'+data).fadeOut(1000);
+          },
+          error: function (){
+              alert('Có lỗi xảy ra');
+          }
+      });
+    }
+
+
+    $(function(){
+
+      $('#check_all').on('change', function() {
+        var checkall = document.getElementById("check_all");
+        var check    = document.getElementsByClassName("check");
+        if (checkall.checked) {
+            for (var i = 0; i < check.length; i++) {
+                check[i].checked = true;
+            }
+        }else{
+            for (var i = 0; i < check.length; i++) {
+                check[i].checked = false;
+            }
+        }
+      });
+    })
+  </script>
+
+@stop
 @stop

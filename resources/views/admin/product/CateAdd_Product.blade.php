@@ -32,7 +32,7 @@
               <?php  
                 $url = route('admin.add.product',['id'=> $value->id]);
               ?>
-              <div class="col-xs-2 thumbnail img-thumbnail text-center " >
+              <div class="col-xs-2 thumbnail img-thumbnail text-center btn btn-success " >
                 <a href="{{ $url }}" class="btn btn-default btn-lg active" role="button">
                   <label class="control-label " for="">{{ $value->name }}</label>
                 </a>

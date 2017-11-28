@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateCategorysTable extends Migration
 {
@@ -19,6 +20,12 @@ class CreateCategorysTable extends Migration
             $table->integer('parent')->unsigned()->nullable();
             $table->timestamps();
         });
+        DB::table('categories')->insert(
+            array(
+                'name' => 'Chưa xác định',
+                'parent' => 0
+            )
+        );
     }
 
     /**

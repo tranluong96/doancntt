@@ -1,5 +1,21 @@
 @extends('templates.public.templates_order')
+@section('title')
+    Contacts
+@stop
 @section('content')
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+      </div>
+      <div class="modal-body bg-success">
+        <p></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="contact-page" class="container">
     <div class="bg"> 	
         <div class="row">  	
@@ -7,21 +23,18 @@
                 <div class="contact-form">
                     <h2 class="title text-center">Get In Touch</h2>
                     <div class="status alert alert-success" style="display: none"></div>
-                    <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+                    <form action="javascript:void(0)" id="" class="contact-form row" name="contact-form" method="post">
                         <div class="form-group col-md-6">
-                            <input type="text" name="name" class="form-control" required="required" placeholder="Name">
+                            <input type="text" name="name" class="form-control"  placeholder="Name" id="name">
                         </div>
                         <div class="form-group col-md-6">
-                            <input type="email" name="email" class="form-control" required="required" placeholder="Email">
+                            <input type="email" name="email" class="form-control"  placeholder="Email" id="email">
                         </div>
                         <div class="form-group col-md-12">
-                            <input type="text" name="subject" class="form-control" required="required" placeholder="Subject">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
+                            <textarea name="message" id="message" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
                         </div>                        
                         <div class="form-group col-md-12">
-                            <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
+                            <button class="btn btn-primary pull-right"  onclick="createContact()">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -59,4 +72,47 @@
         </div>  
     </div>	
 </div><!--/#contact-page-->
+@section('script')
+    <script type="text/javascript">
+        
+        function createContact()
+        {
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var content = $('#message').val();
+            if (name == "") {
+                return alert('Nhập name rỗng !');
+            }
+            if (email == "") {
+                return alert('Nhập email rỗng !');
+            }
+            if (content == "") {
+                return alert('Nhập message rỗng !');
+            }
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('public.create.contact')}}",
+                type: 'post',
+                data: {aname: name, aemail:email, acontent:content},
+                success: function(data){
+                    $('.modal-body').html(data);
+                    $('.modal').css({display:'block', transition:'0.3 all'});
+                    setTimeout(function(){ $('.modal').fadeOut() }, 1000);
+                    $('#content').val("");
+                    $('#email').val("");
+                    $('#name').val("");
+                },
+                error: function (){
+                    alert('Có lỗi xảy ra');
+                }
+            });
+
+        }
+
+    </script>
+@stop
 @stop

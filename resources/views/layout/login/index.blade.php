@@ -1,4 +1,7 @@
 @extends('templates.public.templates_order')
+@section('title')
+    Login
+@stop
 @section('content')
 <div class="container">
     <div class="row">
@@ -18,4 +21,5 @@
         </div>
     </div>
 </div>
+<br>
 @stop

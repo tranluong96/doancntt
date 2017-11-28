@@ -89,8 +89,9 @@ class CateController extends Controller
     public function edit($slug,$id)
     {
         $arcate = categories::find($id);
+        $category = categories::all();
         // dd($arcate);
-        return view('admin.category.edit', ['arcate'=>$arcate]);
+        return view('admin.category.edit', ['arcate'=>$arcate,'category'=>$category]);
     }
 
     /**

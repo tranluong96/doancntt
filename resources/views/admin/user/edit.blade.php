@@ -61,7 +61,11 @@
             <div class="form-group">
                 <label for="">avatar</label>
                 <figure>
-                    <img src="{{ asset('storage/admins/'.$aruser->picture) }}" alt="" style="width: 200px; height: 150px;" class="thumbnail" >
+                    @if( $aruser->picture != "")
+                        <img src="{{ asset('storage/admins/'.$aruser->picture) }}" alt="" style="width: 200px; height: 150px;" class="thumbnail" >
+                    @else
+                        <img src="{{ asset('images/logo/avata.png') }}" title="hình ảnh" class="thumbnail"  style="width: 200px; height: 150px;" />
+                    @endif
                     <input type="checkbox" class="minimal-red"  name="delete_picture" value="yes" onclick="var tb=confirm('Bạn có muốn xóa {{$aruser->picture}} không ?');if(tb==true){return true;}else{return false;};" /> Delete
                 </figure>
                 <hr>

@@ -28,13 +28,6 @@
             <label for="">Name Category</label>
             <input type="text" name="name" required="" value="{{ $arcate->name }}" placeholder="" class="form-control">
           </div>
-          <div class="form-group">
-            <label for="">Avata</label>
-            <figure>
-              <img src="{{ asset('storage/avatars/'.$arcate->avata) }}" alt="{{ $arcate->name }}">
-            </figure>
-            <input type="file" name="avata" class="form-control">
-          </div>
           <div class="container row">
             <div class="form-group">
               <label for="">Chọn Parent</label> <br>
