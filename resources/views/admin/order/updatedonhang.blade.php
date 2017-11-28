@@ -33,7 +33,7 @@
                 <input type="text" name="name" value="{{ $arProduct->name }}" class="form-control" placeholder="Enter name product" readonly="">
               </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-2">
               <div class="form-group">
                 <label for=" ">Giá Nhập Vào</label>
                 <input type="number" name="price_old" value="" class="form-control" id="" placeholder="{{ $arProduct->price_old }}">
@@ -48,17 +48,30 @@
                <label for=" ">Số lượng</label>
                 <input type="number" name="quantity" value="" class="form-control" id="" placeholder="{{ $arProduct->quantity }}">
              </div>
-             <div class="form-group">
-                  <label>Giảm giá (%)</label>
-                  <input type="number" value="" name="discount" class="form-control" placeholder="{{ $arProduct->discount }}">
-              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="form-group">
+                  <label>avata sản phẩm</label> <br>
+                    <div id="myfileupload">
+                        <input type="file" name="avata" id="uploadfile" onchange="readURL(this);">
+                    </div>
+                    <div id="thumbbox">
+                        <img height="100" class="thumbnail" src="{{ asset('storage/products/'.$arProduct->picture) }}" width="100" alt="Thumb image" id="thumbimage">
+                        <!-- <a class="removeimg" href="javascript:"></a> -->
+                     </div>
+                     <!-- <div id="boxchoice">
+                        <a href="javascript:" class="Choicefile">Browser</a>
+                        <p style="clear:both"></p>
+                     </div>
+                      <label class="filename"></label> -->
+                </div>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
               <div class="form-group">
                 <label for=" ">Chi Tiết Sản Phẩm</label>
-                <textarea name="detail" class="form-control" rows="3">{{ $arProduct->detail }}</textarea>
+                <textarea name="detail" class="ckeditor form-control" rows="3">{{ $arProduct->detail }}</textarea>
               </div>
             </div>
           </div>
@@ -70,49 +83,47 @@
       </form>
     </div>
     <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Danh Sách Đơn Hàng Đã Nhập</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <table id="example2" class="table table-bordered table-hover">
-            <thead>
-            <tr>
-              <th>Stt</th>
-              <th>id_Code</th>
-              <th>Tên Sản Phẩm</th>
-              <th>Thuộc danh mục</th>
-              <th>Số Lượng</th>
-              <th>Đơn Giá</th>
-              <th>Thành Tiền</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>1</td>
-              <td>IP12NC</td>
-              <td>Iphone 8
-              </td>
-              <td>Điện thoại</td>
-              <td>1</td>
-              <td>23.000.000</td>
-              <td>23.000.000</td>
-            </tr>
-            </tbody>
-            <tbody>
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <div class="col-xs-5 text-left">
+              <h3 class="box-title">Danh Sách Đơn Hàng Đã Nhập</h3>
+            </div>
+            <div class="col-xs-2 pull-right">
+              <h3 class="box-title">
+                <?php $date = date("Y-m-d"); ?>
+                <form action="{{ route('admin.excel.addorder') }}" method="post">
+                  {{ csrf_field() }}
+                  <input type="hidden" value="{{ $date }}" name="date">
+                  <button type="submit" onclick="" class="btn btn-primary">Xuất file Excels</button>
+                </form>
+              </h3>
+            </div>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            
+            <input type="hidden" value="{{ $date }}" id="datetime">
+            <table id="example2" class="table table-bordered table-hover">
+              <thead>
               <tr>
-                <th>Tổng Tiền</th>
-                <th colspan="6" class="text-right">500.0000 vnđ</th>
+                <th>Stt</th>
+                <th>id_Code</th>
+                <th>Số Lượng</th>
+                <th>Giá nhập vào</th>
+                <th>Giá bán ra </th>
+                <th>Tổng tiền</th>
               </tr>
-            </tbody>
-          </table>
+              </thead>
+              <tbody id="getValueInOrder">
+                
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
         </div>
-        <!-- /.box-body -->
+        <!-- /.box -->
       </div>
-      <!-- /.box -->
-    </div>
     <!-- /.col -->
   </div>
 </div>

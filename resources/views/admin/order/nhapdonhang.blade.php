@@ -72,11 +72,8 @@
                <label for=" ">Số lượng</label>
                 <input type="number" name="quantity" class="form-control" id="" placeholder="">
              </div>
-             <div class="form-group">
-                  <label>Giảm giá (%)</label>
-                  <input type="number" value="0" name="discount" class="form-control">
-              </div>
             </div>
+            
             <div class="col-xs-2">
               <div class="form-group">
                   <label>Chọn avata sản phẩm</label> <br>
@@ -164,30 +161,4 @@
     <!-- /.col -->
   </div>
 </div>
-@section('script')
-  <script type="text/javascript"> 
-    function getListInOrder(){
-        setTimeout(function(){
-        var date = $('#datetime').val();
-        // alert(date);
-            $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-              });
-            $.ajax({
-                url: "{{route('admin.ajax.getInOrder')}}",
-                type: 'post',
-                data: {adate:date},
-                success: function(data){
-                   $('#getValueInOrder').html(data);
-                },
-                complete: getListInOrder
-            });
-        },200);
-    };
-    getListInOrder();
-
-  </script>
-@stop
 @stop
