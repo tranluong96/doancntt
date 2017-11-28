@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\parameters;
 use App\categories;
 use App\paracatedetail;
+use App\parameter_detail;
 
 class ParameterController extends Controller
 {
@@ -136,7 +137,14 @@ class ParameterController extends Controller
     {
         $id  = $request->aid;
         $obj = parameters::find($id);
-        $des = DB::table('paracatedetail')->where('parameters_id','=',$id)->delete();
+
+        if (count(paracatedetail::where('parameters_id','=',$id)->get()) > 0) {
+             paracatedetail::where('parameters_id','=',$id)->delete();
+        }
+        if (count(parameter_detail::where('parameter_id','=',$id)->get()) > 0) {
+             parameter_detail::where('parameter_id','=',$id)->delete();
+        }
+
         $obj->delete();
         return '<p class="alert alert-danger alert-dismissable">Xóa thành công !</p>';
     }

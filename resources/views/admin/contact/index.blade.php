@@ -116,7 +116,7 @@
 								<a href="javascript:void(0)" onclick="setStar({{$value->id}},0)"><i class="fa fa-star text-black"></i></a>
 			                	@endif
 			                </td>
-			                <td class="mailbox-name" onclick="modalView({{ $value->id }})"><a href="read-mail.html">{{ $value->name }}</a></td>
+			                <td class="mailbox-name" onclick="modalView({{ $value->id }})"><a href="javascript:void(0)">{{ $value->name }}</a></td>
 			                <td class="mailbox-subject"><b>{{ $value->content }}</b>
 			                </td>
 			                <td class="mailbox-attachment"></td>
