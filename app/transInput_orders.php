@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class transInput_order extends Model
+class transInput_orders extends Model
 {
     protected $table = 'traninput_order';
     protected $primaryKey = 'id';

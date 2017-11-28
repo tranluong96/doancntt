@@ -76,7 +76,7 @@ class ParameterController extends Controller
                     'parameter_id' => $id_para,
                     'categorie_id' => $cate
                 );
-                paracatedetail::insert($ar);
+                paracatedetails::insert($ar);
                 return '<p class="alert alert-success alert-dismissable">Thêm thành công !</p>';
             }else{
                 return 'Thêm thất bại !';
@@ -138,13 +138,13 @@ class ParameterController extends Controller
         $id  = $request->aid;
         $obj = parameters::find($id);
 
-        if (count(paracatedetail::where('parameters_id','=',$id)->get()) > 0) {
+        if (count(paracatedetails::where('parameters_id','=',$id)->get()) > 0) {
 
-            paracatedetail::where('parameters_id','=',$id)->delete();
+            paracatedetails::where('parameters_id','=',$id)->delete();
         }
 
-        if (count(parameter_detail::where('parameter_id','=',$id)->get()) > 0) {
-            parameter_detail::where('parameter_id','=',$id)->delete();
+        if (count(parameter_details::where('parameter_id','=',$id)->get()) > 0) {
+            parameter_details::where('parameter_id','=',$id)->delete();
         }
 
         $des = DB::table('paracatedetail')->where('parameters_id','=',$id)->delete();

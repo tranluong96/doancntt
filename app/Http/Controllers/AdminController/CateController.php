@@ -137,8 +137,8 @@ class CateController extends Controller
             if (count(Category::where('parent','=',$id)->get()) > 0) {
                 $idparent = Category::where('parent','=',$id)->get();
                 dd($idparent[0]->id);
-                    if (count(paracatedetail::where('categories_id','=',$idparent[0]->id)->get()) > 0) {
-                    paracatedetail::where('categories_id','=',$idparent[0]->id)->delete();
+                    if (count( paracatedetails::where('categories_id','=',$idparent[0]->id)->get()) > 0) {
+                     paracatedetails::where('categories_id','=',$idparent[0]->id)->delete();
                 }
 
                 if (count(Product::where('category_id','=',$idparent[0]->id)->get()) > 0) {
@@ -150,8 +150,8 @@ class CateController extends Controller
                 }
                 Category::where('parent','=',$id)->delete();
             }
-            if (count(paracatedetail::where('categories_id','=',$id)->get()) > 0) {
-                paracatedetail::where('categories_id','=',$id)->delete();
+            if (count( paracatedetails::where('categories_id','=',$id)->get()) > 0) {
+                 paracatedetails::where('categories_id','=',$id)->delete();
             }
 
             if (count(Product::where('category_id','=',$id)->get()) > 0) {

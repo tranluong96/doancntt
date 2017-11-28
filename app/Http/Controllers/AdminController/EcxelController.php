@@ -15,8 +15,7 @@ class EcxelController extends Controller
     public function ExportAddOrder(Request $req)
     {
     	$date = $req->adate;
-    	$export = transInput_order::where('created_at','=',$date)->get();
-		// dd($export);
+    	$export = transInput_orders::where('created_at','=',$date)->get();
     	Excel::create('Báo cáo bán hàng', function($excel) use ($export){
 		    	$excel->sheet('Sheet 1', function($sheet) use ($export){
 					$sheet->fromArray($export);
