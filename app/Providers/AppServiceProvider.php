@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         View::share('publicurl','resources/assets/templates/public');
+        View::share('templates.public', 'App\Http\Views\Composers\ProductFromComposer');
+        View::share('App\Http\Views\Composers\ProductFromComposer', 'templates.public');
     }
 
     /**
