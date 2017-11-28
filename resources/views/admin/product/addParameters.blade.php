@@ -1,14 +1,14 @@
 @extends('templates.admin.template')
 @section('content')
 <?php 
-  use App\Products;
-  use App\categories;
-  use App\paracatedetail;
+  use App\Product;
+  use App\Category;
+  use App\Paracatedetail;
   use Illuminate\Support\Facades\DB;
   $idcate = Session::get('IDCate');
   $parameters = DB::table('paracatedetail')->join('parameters', 'paracatedetail.parameters_id','=','parameters.id')->join('categories','paracatedetail.categories_id','=','categories.id')->select('parameters.*')->where('paracatedetail.categories_id','=',$idcate)->get();
-  $categories = categories::all();
-  $arProduct = Products::where('id','=',$id)->get();
+  $category = Category::all();
+  $arProduct = Product::where('id','=',$id)->get();
   
   // dd($parameters);
 ?>
@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label for="">Chọn danh mục</label> <br>
                         <select id="parameters" name="category" class="form-control select2" style="width: 250px;">
-                            @foreach( $categories as $keys => $values )
+                            @foreach( $category as $keys => $values )
                             <option value="{{ $values->id }}">{{ $values->name }}</option>
                             @endforeach
                         </select>

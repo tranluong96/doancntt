@@ -28,7 +28,7 @@
                   margin-right:5px;
                 }
               </style>
-              @foreach( $categories as $key => $value)
+              @foreach( $category as $key => $value)
               <?php  
                 $url = route('admin.add.product',['id'=> $value->id]);
               ?>

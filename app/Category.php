@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class permission_users extends Model
+class Category extends Model
 {
-    protected $table = 'permission_user';
+    protected $table = 'categories';
     protected $primaryKey = 'id';
     public $timestamps = false;
 }

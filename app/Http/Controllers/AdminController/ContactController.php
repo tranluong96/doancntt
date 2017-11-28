@@ -4,21 +4,21 @@ namespace App\Http\Controllers\AdminController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\contacts;
+use App\Contact;
 
 class ContactController extends Controller
 {
     public function index()
     {
-    	$arcontact = contacts::all();
+    	$arcontact = contact::all();
     	return view('admin.contact.index',['contacts'=> $arcontact]);
     }
 
     public function View(Request $request)
     {
         $id = $request->aid;
-        $contact= contacts::find($id);
-        contacts::where('id','=',$id)->update(['view'=>1]);
+        $contact= Contact::find($id);
+        Contact::where('id','=',$id)->update(['view'=>1]);
         $name = $contact->name;
         $email = $contact->email;
         $content = $contact->content;
@@ -27,19 +27,19 @@ class ContactController extends Controller
     
     public function getcount(Request $req)
     {
-    	$countcontact = count(contacts::where('view','=',0)->get());
+    	$countcontact = count(Contact::where('view','=',0)->get());
     	return $countcontact;
     }
 
     public function getall(Request $req)
     {
-        $countcontact = count(contacts::all());
+        $countcontact = count(Contact::all());
         return $countcontact;
     }
 
     public function arContact(Request $req)
     {
-        $contact = contacts::all();
+        $contact = Contact::all();
         $str ="";
         foreach ($contact as $key => $value) {
             $str .= '<li onclick="modelView('.$value->id.')">
@@ -67,13 +67,13 @@ class ContactController extends Controller
         if($id>0){
             if ($gt==0) {
 
-                contacts::where('id','=',$id)->update(['star' => 1]);
+                Contact::where('id','=',$id)->update(['star' => 1]);
 
                 echo '<a href="javascript:void(0)" onclick="setStar('.$id.',1)"><i class="fa fa-star text-yellow"></i></a>';
             }
             if ($gt==1) {
 
-                contacts::where('id','=',$id)->update(['star' => 0]);
+                Contact::where('id','=',$id)->update(['star' => 0]);
 
                 echo '<a href="javascript:void(0)" onclick="setStar('.$id.',0)"><i class="fa fa-star text-black"></i></a>';
             }
@@ -89,7 +89,7 @@ class ContactController extends Controller
             return redirect()->route('admin.contact.index');
         }
         for ($i=0; $i < count($listcontacts); $i++) { 
-            $contacts = contacts::find($listcontacts[$i]);
+            $contacts = Contact::find($listcontacts[$i]);
             $contacts->delete();
         }
         $request->session()->flash('msg-s','Xóa thành công');

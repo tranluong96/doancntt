@@ -4,7 +4,7 @@ namespace App\Http\Controllers\LayoutController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\contacts;
+use App\Contact;
 
 class ContactController extends Controller
 {
@@ -44,7 +44,7 @@ class ContactController extends Controller
                     'created_at'=> $date
                 );
         // dd($arContact);
-        contacts::insert($arContact);
+        Contact::insert($arContact);
         return 'Send success, Thanks you !';
     }
 

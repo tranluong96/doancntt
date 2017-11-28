@@ -1,9 +1,9 @@
 @extends('templates.admin.template')
 @section('content')
 <?php 
-	use App\contacts;
-  $countall = count(contacts::all());
-	$countallstar = count(contacts::where('star','=',1)->get());
+	use App\Contact;
+  $countall = count(Contact::all());
+	$countallstar = count(Contact::where('star','=',1)->get());
 ?>
 <!-- Modal -->
 <div class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

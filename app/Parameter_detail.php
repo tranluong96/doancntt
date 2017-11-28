@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comments extends Model
+class Parameter_detail extends Model
 {
-    protected $table = 'comments';
+    protected $table = 'parameter_detail';
     protected $primaryKey = 'id';
     public $timestamps = false;
 }

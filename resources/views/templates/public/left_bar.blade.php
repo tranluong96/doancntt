@@ -1,6 +1,6 @@
 <?php 
-	use App\categories;
-	$categories = categories::where('id','>',1)->get();
+	use App\Category;
+	$categories = Category::where('id','>',1)->get();
 ?>
 
 <h2>Category</h2>

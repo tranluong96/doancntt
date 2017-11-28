@@ -16,8 +16,8 @@
             <div class="col-xs-6">
               <div class="form-group">
                 <label>Hiện đang Chọn danh mục</label>
-                <input class="form-control" id="disabledTextInput" type="text" value="{{ $categories->name }}" readonly>
-                <input type="hidden" name="idcate" value="{{ $categories->id }}">
+                <input class="form-control" id="disabledTextInput" type="text" value="{{ $category->name }}" readonly>
+                <input type="hidden" name="idcate" value="{{ $category->id }}">
               </div>
             </div>
           </div>

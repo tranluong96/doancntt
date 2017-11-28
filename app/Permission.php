@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class parameter_details extends Model
+class Permission extends Model
 {
-    protected $table = 'parameter_detail';
+    protected $table = 'permission';
     protected $primaryKey = 'id';
     public $timestamps = false;
 }

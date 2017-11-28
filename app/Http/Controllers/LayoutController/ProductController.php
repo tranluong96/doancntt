@@ -5,11 +5,11 @@ namespace App\Http\Controllers\LayoutController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Products;
-use App\categories;
-use App\parameter_details;
-use App\parameters;
-use App\Comments;
+use App\Product;
+use App\Category;
+use App\Parameter_detail;
+use App\Parameter;
+use App\Comment;
 
 class ProductController extends Controller
 {
@@ -20,14 +20,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Products::where('active','=',1)->orderby('id','DESC')->paginate(10);
+        $products = Product::where('active','=',1)->orderby('id','DESC')->paginate(10);
         return view('layout.product.index',['products'=>$products]);
     }
 
     public function Product_Cate($slug, $id)
     {
-        $arproducts = Products::where('category_id','=',$id)->paginate(10);
-        $arname     = categories::where('id','=',$id)->select('name')->get();
+        $arproducts = Product::where('category_id','=',$id)->paginate(10);
+        $arname     = Category::where('id','=',$id)->select('name')->get();
         $name = $arname[0]->name; 
         // dd($name);
         return view('layout.product.product',['name'=>$name,'products'=> $arproducts]);
@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function product_detail($slug,$id)
     {
         // dd(123);
-        $arproduct = Products::find($id);
+        $arproduct = Product::find($id);
         $arparameters = DB::table('Products')->join('parameter_detail','Products.id','=','parameter_detail.product_id')->join('parameters','parameter_detail.parameter_id','=','parameters.id')->select('parameter_detail.*','parameters.name')->where('Products.id','=',$id)->get();
         // dd($arparameters);
         return view('layout.product.product_detail',['product'=>$arproduct, 'parameters'=>$arparameters]);
@@ -56,7 +56,7 @@ class ProductController extends Controller
                         'created_at' => $date
                     );
 
-            Comments::insert($arcomment);
+            Comment::insert($arcomment);
             
             return "Bình luận thành công !";
         }
@@ -74,7 +74,7 @@ class ProductController extends Controller
             return  $arStr[1].' '.$arNgay[2].'-'.$arNgay[1].'-'.$arNgay[0];
         }
         $id = $request->aid;
-        $array = Comments::where('product_id','=',$id)->orderby('id','DESC')->get();
+        $array = Comment::where('product_id','=',$id)->orderby('id','DESC')->get();
         // dd($array);
         $str ="";
         foreach ($array as $key => $value) {

@@ -27,8 +27,8 @@
 
 <body>
 	<?php
-		use App\categories;
-		$categories = categories::where('id','>',1)->get();
+		use App\Category;
+		$category = Category::where('id','>',1)->get();
 	?>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
@@ -121,7 +121,7 @@
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{{ route('public.index') }}" class="active">Home</a></li>
 
-								@foreach( $categories as $key => $value)
+								@foreach( $category as $key => $value)
 									@if( $value->parent == 0 )
 									<li><a href="{{ route('public.Product_Cate',['slug'=>str_slug($value->name),'id'=>$value->id]) }}">{{ $value->name }}</a></li>
 									@endif

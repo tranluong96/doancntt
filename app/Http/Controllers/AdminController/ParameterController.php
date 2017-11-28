@@ -5,10 +5,10 @@ namespace App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\parameters;
-use App\categories;
-use App\paracatedetails;
-use App\parameter_details;
+use App\Parameter;
+use App\Category;
+use App\Paracatedetail;
+use App\Parameter_detail;
 
 class ParameterController extends Controller
 {
@@ -36,7 +36,7 @@ class ParameterController extends Controller
 
 
     function getParameters(Request $request){
-        $ar = parameters::all();
+        $ar = Parameter::all();
         $str = "";
         foreach ($ar as $key => $value) {
             $slug = str_slug($value->name);
@@ -68,15 +68,15 @@ class ParameterController extends Controller
             return "Nhập rỗng !";
         }else{
             $arpara = array('name' =>$name);
-            if (parameters::insert($arpara)) {
+            if (Parameter::insert($arpara)) {
 
-                $arpa = parameters::where('name','=',$name)->get();
+                $arpa = Parameter::where('name','=',$name)->get();
                 $id_para = $arpa[0]->id;
                 $ar = array(
                     'parameters_id' => $id_para,
                     'categories_id' => $cate
                 );
-                paracatedetails::insert($ar);
+                Paracatedetail::insert($ar);
                 return '<p class="alert alert-success alert-dismissable">Thêm thành công !</p>';
             }else{
                 return 'Thêm thất bại !';
@@ -103,7 +103,7 @@ class ParameterController extends Controller
      */
     public function edit($slug,$id)
     {
-        $arPara = parameters::find($id);
+        $arPara = Parameter::find($id);
         return view('admin.parameters.edit',['parameters'=> $arPara]);
     }
 
@@ -115,7 +115,7 @@ class ParameterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   $obj  = parameters::find($id);
+    {   $obj  = Parameter::find($id);
         $name = trim($request->name) ;
         if ($name == null) {
             $request->session()->flash('msg-e','Thêm thất bại, tên danh mục đã tồn tại');
@@ -136,15 +136,15 @@ class ParameterController extends Controller
     public function destroy(Request $request)
     {
         $id  = $request->aid;
-        $obj = parameters::find($id);
+        $obj = Parameter::find($id);
 
-        if (count(paracatedetails::where('parameters_id','=',$id)->get()) > 0) {
+        if (count(Paracatedetail::where('parameters_id','=',$id)->get()) > 0) {
 
-            paracatedetails::where('parameters_id','=',$id)->delete();
+            Paracatedetail::where('parameters_id','=',$id)->delete();
         }
 
-        if (count(parameter_details::where('parameter_id','=',$id)->get()) > 0) {
-            parameter_details::where('parameter_id','=',$id)->delete();
+        if (count(Parameter_detail::where('parameter_id','=',$id)->get()) > 0) {
+            Parameter_detail::where('parameter_id','=',$id)->delete();
         }
 
         $des = DB::table('paracatedetail')->where('parameters_id','=',$id)->delete();
