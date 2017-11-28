@@ -1,6 +1,6 @@
 @include('templates.public.header')
 	<section id="slider"><!--slider-->
-		@include('templates.public.slider')
+		<!-- @include('templates.public.slider') -->
 	</section><!--/slider-->
 	<section>
 		<div class="container">
